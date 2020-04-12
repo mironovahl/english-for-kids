@@ -1,0 +1,9 @@
+.header {
+  display: flex;
+  @extend %font;
+  background-color: white;
+  height: 90px;
+}
+.header__text{
+  margin: auto;
+}
