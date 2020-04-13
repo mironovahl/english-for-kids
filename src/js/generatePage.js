@@ -6,6 +6,10 @@ const createPage = (choice) => {
     const renderCard = () => {
       let content = getContainer();
       if(choice=='Statistics'){
+        let div=document.createElement('div');
+        div.className='sort';
+        div.innerHTML=`<button class="button-sort">Sorting</button>`
+        document.querySelector('.content').append(div);
         generateStats(data[choice]).forEach(el => {
           content.append(el.generateStat());
         })
@@ -52,7 +56,21 @@ const createPage = (choice) => {
           cardList[k]=cards[i][j];
         }
       }
+      if(document.querySelector('.header__text_categories').classList.contains('yes')){
+        console.log(1234567);
+        cardList = Sort(cardList);
+    
+      }
+
       return cardList;
+    }
+
+    const Sort = (d) => {
+      d.sort((prev, next) => {
+        if ( prev.word < next.word ) return -1;
+        if ( prev.word < next.word ) return 1;
+    });
+    return d;
     }
 
     if(data) {

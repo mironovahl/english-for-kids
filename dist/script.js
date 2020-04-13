@@ -154,6 +154,12 @@ MENU.addEventListener('click', function (event) {
 
 CONTENT.onclick = function () {
   Object(_js_close__WEBPACK_IMPORTED_MODULE_5__["close"])();
+  console.log(event.target);
+
+  if (event.target.classList.contains('button-sort')) {
+    document.querySelector('.header__text_categories').classList.add('yes');
+    Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])(document.querySelector('.header__text_categories').innerHTML);
+  }
 
   if (event.target.classList.contains('rotate')) {
     event.target.closest('.card').classList.add('translate');
@@ -186,7 +192,7 @@ CONTENT.onclick = function () {
 };
 
 HEADER.addEventListener('click', function (event) {
-  if (!event.target.classList.contains('header__burger') && !event.target.closest('header__burger')) Object(_js_close__WEBPACK_IMPORTED_MODULE_5__["close"])();
+  if (!event.target.classList.contains('header__burger') && !event.target.closest('.header__burger') && !event.target.closest('.sidebar')) Object(_js_close__WEBPACK_IMPORTED_MODULE_5__["close"])();
 });
 
 window.onload = function () {
@@ -1032,6 +1038,10 @@ var createPage = function createPage(choice) {
     var content = getContainer();
 
     if (choice == 'Statistics') {
+      var div = document.createElement('div');
+      div.className = 'sort';
+      div.innerHTML = "<button class=\"button-sort\">Sorting</button>";
+      document.querySelector('.content').append(div);
       generateStats(_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice]).forEach(function (el) {
         content.append(el.generateStat());
       });
@@ -1082,7 +1092,20 @@ var createPage = function createPage(choice) {
       }
     }
 
+    if (document.querySelector('.header__text_categories').classList.contains('yes')) {
+      console.log(1234567);
+      cardList = Sort(cardList);
+    }
+
     return cardList;
+  };
+
+  var Sort = function Sort(d) {
+    d.sort(function (prev, next) {
+      if (prev.word < next.word) return -1;
+      if (prev.word < next.word) return 1;
+    });
+    return d;
   };
 
   if (_data__WEBPACK_IMPORTED_MODULE_0__["default"]) {
@@ -1117,7 +1140,7 @@ var Play = function Play() {
     });
     var div = document.createElement('div');
 
-    if (document.querySelector('.content').children[1].classList.contains('card')) {
+    if (document.querySelector('.content').children[0].classList.contains('card')) {
       div.className = 'button game';
       div.innerHTML = "<button class=\"button_start\">Start game</button>";
       document.querySelector('.content').append(div);

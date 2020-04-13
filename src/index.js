@@ -52,6 +52,11 @@ MENU.addEventListener('click',(event)=>{
 
 CONTENT.onclick=function(){
   close();
+  console.log(event.target);
+  if(event.target.classList.contains('button-sort')){
+    document.querySelector('.header__text_categories').classList.add('yes');
+    createPage(document.querySelector('.header__text_categories').innerHTML)
+  }
   if(event.target.classList.contains('rotate')){
     event.target.closest('.card').classList.add('translate');
     event.target.closest('.card').onmouseleave=()=>{
@@ -85,7 +90,7 @@ CONTENT.onclick=function(){
 }
 
 HEADER.addEventListener('click',(event)=>{
-  if(!event.target.classList.contains('header__burger')&&!event.target.closest('header__burger'))
+  if(!event.target.classList.contains('header__burger')&&!event.target.closest('.header__burger')&&!event.target.closest('.sidebar'))
   close();
 })
 window.onload = function() {

@@ -4,7 +4,7 @@ const Play=()=>{
     document.querySelectorAll('.card').forEach(el=>el.classList.add('play'));
     document.querySelectorAll('.card-categories').forEach(el=>el.classList.add('play'));
     let div=document.createElement('div');
-    if(document.querySelector('.content').children[1].classList.contains('card')){
+    if(document.querySelector('.content').children[0].classList.contains('card')){
       div.className='button game';
       div.innerHTML=`<button class="button_start">Start game</button>`;
       document.querySelector('.content').append(div);
