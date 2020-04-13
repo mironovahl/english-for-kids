@@ -11,6 +11,7 @@ const Play=()=>{
       let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
       let soundList =n.AudioGenerate();
       let choice=n.AudioChoice(soundList);
+      //PlayChoice(choice);
       document.querySelector('.button_start').onclick=function(){
         if(!document.querySelector('.button_start').classList.contains('repeat')){
           document.querySelector('.button_start').classList.add('repeat');
@@ -29,5 +30,10 @@ const Play=()=>{
     document.querySelectorAll('.button').forEach(el=>el.classList.remove('game'));
   }
 }
-
+/* const PlayChoice=()=>{
+  let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
+  let soundList =n.AudioGenerate();
+  let choice=n.AudioChoice(soundList);
+  return elem;
+} */
 export {Play}

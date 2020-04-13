@@ -49,6 +49,8 @@ MENU.addEventListener('click',(event)=>{
 })
 
 CONTENT.addEventListener('click',(event)=>{
+  document.querySelector('.sidebar').classList.remove('show');
+  document.querySelector('.header__burger').classList.remove('open');
   if(event.target.classList.contains('rotate')){
     event.target.closest('.card').classList.add('translate');
     event.target.closest('.card').onmouseleave=()=>{
@@ -62,13 +64,16 @@ CONTENT.addEventListener('click',(event)=>{
    for(let i = 0; i < ListCard.length; i++) {
     if(ListCard[i]==elem){
       let c =new Card(data[choice][i])
+      data[choice][i].stat+=1;
       c.PlayAudio();
+      console.log(data[choice][i].stat)
     }
   }
   }
   else if(event.target.closest('.card')&&document.querySelector('.button_start').classList.contains('repeat')&&event.target.closest('.card').classList.contains('play')){
     let elem=event.target.closest('.card').id;
-     let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
+    let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
+    console.log();
   }
   
   else if(event.target.closest('.card-categories')){

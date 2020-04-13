@@ -149,6 +149,9 @@ MENU.addEventListener('click', function (event) {
   }
 });
 CONTENT.addEventListener('click', function (event) {
+  document.querySelector('.sidebar').classList.remove('show');
+  document.querySelector('.header__burger').classList.remove('open');
+
   if (event.target.classList.contains('rotate')) {
     event.target.closest('.card').classList.add('translate');
 
@@ -163,12 +166,15 @@ CONTENT.addEventListener('click', function (event) {
     for (var i = 0; i < ListCard.length; i++) {
       if (ListCard[i] == elem) {
         var c = new _js_generate__WEBPACK_IMPORTED_MODULE_1__["Card"](_js_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice][i]);
+        _js_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice][i].stat += 1;
         c.PlayAudio();
+        console.log(_js_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice][i].stat);
       }
     }
   } else if (event.target.closest('.card') && document.querySelector('.button_start').classList.contains('repeat') && event.target.closest('.card').classList.contains('play')) {
     var _elem = event.target.closest('.card').id;
     var n = new _js_audio__WEBPACK_IMPORTED_MODULE_4__["Sound"](document.querySelector('.header__text_categories').innerHTML);
+    console.log();
   } else if (event.target.closest('.card-categories')) {
     Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])(event.target.closest('.card-categories').id);
     Object(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"])();
@@ -230,6 +236,13 @@ var Sound = /*#__PURE__*/function () {
       this.audio = audio;
       audio.play();
     }
+    /*   Check(id){
+        if(data[this.categ][id].audio==audio){
+          let audio=new Audio('../src/audio/correct.mp3');
+          audio.play();
+        }
+      } */
+
   }]);
 
   return Sound;
@@ -251,329 +264,585 @@ var data = {
     word: 'Mother',
     translate: 'Мама',
     image: '../src/img/family/mother.jpg',
-    audio: '../src/audio/family/mother.mp3'
+    audio: '../src/audio/family/mother.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Father',
     translate: 'Папа',
     image: '../src/img/family/father.jpg',
-    audio: '../src/audio/family/father.mp3'
+    audio: '../src/audio/family/father.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Brother',
     translate: 'Брат',
     image: '../src/img/family/brother.jpg',
-    audio: '../src/audio/family/brother.mp3'
+    audio: '../src/audio/family/brother.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Sister',
     translate: 'Сестра',
     image: '../src/img/family/sister.jpg',
-    audio: '../src/audio/family/sister.mp3'
+    audio: '../src/audio/family/sister.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Son',
     translate: 'Сын',
     image: '../src/img/family/son.jpg',
-    audio: '../src/audio/family/son.mp3'
+    audio: '../src/audio/family/son.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Daughter',
     translate: 'Дочь',
     image: '../src/img/family/daughter.jpg',
-    audio: '../src/audio/family/daughter.mp3'
+    audio: '../src/audio/family/daughter.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Grandmother',
     translate: 'Бабушка',
     image: '../src/img/family/grandmother.jpg',
-    audio: '../src/audio/family/grandmother.mp3'
+    audio: '../src/audio/family/grandmother.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Grandfather',
     translate: 'Дедушка',
     image: '../src/img/family/grandfather.jpg',
-    audio: '../src/audio/family/grandfather.mp3'
+    audio: '../src/audio/family/grandfather.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }],
   Clothes: [{
     word: 'Socks',
     translate: 'Носки',
     image: '../src/img/clothes/socks.jpg',
-    audio: '../src/audio/clothes/socks.mp3'
+    audio: '../src/audio/clothes/socks.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Jeans',
     translate: 'Джинсы',
     image: '../src/img/clothes/jeans.jpg',
-    audio: '../src/audio/clothes/jeans.mp3'
+    audio: '../src/audio/clothes/jeans.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Shirt',
     translate: 'Рубашка',
     image: '../src/img/clothes/shirt.jpg',
-    audio: '../src/audio/clothes/shirt.mp3'
+    audio: '../src/audio/clothes/shirt.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Dress',
     translate: 'Платье',
     image: '../src/img/clothes/dress.jpg',
-    audio: '../src/audio/clothes/dress.mp3'
+    audio: '../src/audio/clothes/dress.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Skirt',
     translate: 'Юбка',
     image: '../src/img/clothes/skirt.jpg',
-    audio: '../src/audio/clothes/skirt.mp3'
+    audio: '../src/audio/clothes/skirt.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Cap',
     translate: 'Шапка',
     image: '../src/img/clothes/cap.jpg',
-    audio: '../src/audio/clothes/cap.mp3'
+    audio: '../src/audio/clothes/cap.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Sweater',
     translate: 'Свитер',
     image: '../src/img/clothes/sweater.jpg',
-    audio: '../src/audio/clothes/sweater.mp3'
+    audio: '../src/audio/clothes/sweater.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Boots',
     translate: 'Ботинки',
     image: '../src/img/clothes/boots.jpg',
-    audio: '../src/audio/clothes/boots.mp3'
+    audio: '../src/audio/clothes/boots.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }],
   Animal: [{
     word: 'Cat',
     translate: 'Кошка',
     image: '../src/img/animals/cat.jpg',
-    audio: '../src/audio/animal/cat.mp3'
+    audio: '../src/audio/animal/cat.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Turtle',
     translate: 'Черепаха',
     image: '../src/img/animals/turtle.jpg',
-    audio: '../src/audio/animal/turtle.mp3'
+    audio: '../src/audio/animal/turtle.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Horse',
     translate: 'Лошадь',
     image: '../src/img/animals/horse.jpg',
-    audio: '../src/audio/animal/horse.mp3'
+    audio: '../src/audio/animal/horse.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Rabbit',
     translate: 'Кролик',
     image: '../src/img/animals/rabbit.jpg',
-    audio: '../src/audio/animal/rabbit.mp3'
+    audio: '../src/audio/animal/rabbit.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Lion',
     translate: 'Лев',
     image: '../src/img/animals/lion.jpg',
-    audio: '../src/audio/animal/lion.mp3'
+    audio: '../src/audio/animal/lion.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Bird',
     translate: 'Птица',
     image: '../src/img/animals/bird.jpg',
-    audio: '../src/audio/animal/bird.mp3'
+    audio: '../src/audio/animal/bird.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Giraffe',
     translate: 'Жираф',
     image: '../src/img/animals/giraffe.jpg',
-    audio: '../src/audio/animal/giraffe.mp3'
+    audio: '../src/audio/animal/giraffe.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Dog',
     translate: 'Собака',
     image: '../src/img/animals/dog.jpg',
-    audio: '../src/audio/animal/dog.mp3'
+    audio: '../src/audio/animal/dog.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }],
   Food: [{
     word: 'Bread',
     translate: 'Хлеб',
     image: '../src/img/food/bread.jpg',
-    audio: '../src/audio/food/bread.mp3'
+    audio: '../src/audio/food/bread.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Egg',
     translate: 'Яйца',
     image: '../src/img/food/eggs.jpg',
-    audio: '../src/audio/food/eggs.mp3'
+    audio: '../src/audio/food/eggs.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Cherry',
     translate: 'Вишня',
     image: '../src/img/food/cherry.jpg',
-    audio: '../src/audio/food/cherry.mp3'
+    audio: '../src/audio/food/cherry.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Cheese',
     translate: 'Сыр',
     image: '../src/img/food/cheese.jpg',
-    audio: '../src/audio/food/cheese.mp3'
+    audio: '../src/audio/food/cheese.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Tomato',
     translate: 'Помидор',
     image: '../src/img/food/tomato.jpg',
-    audio: '../src/audio/food/tomato.mp3'
+    audio: '../src/audio/food/tomato.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Pizza',
     translate: 'Пицца',
     image: '../src/img/food/pizza.jpg',
-    audio: '../src/audio/food/pizza.mp3'
+    audio: '../src/audio/food/pizza.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Soup',
     translate: 'Cуп',
     image: '../src/img/food/soup.jpg',
-    audio: '../src/audio/food/soup.mp3'
+    audio: '../src/audio/food/soup.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Sandwich',
     translate: 'Ботинки',
     image: '../src/img/food/sandwich.jpg',
-    audio: '../src/audio/food/sandwich.mp3'
+    audio: '../src/audio/food/sandwich.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }],
   Figures: [{
     word: 'Circle',
     translate: 'Круг',
     image: '../src/img/figure/circle.jpg',
-    audio: '../src/audio/figure/circle.mp3'
+    audio: '../src/audio/figure/circle.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Rectangle',
     translate: 'Прямоугольник',
     image: '../src/img/figure/rectangle.jpg',
-    audio: '../src/audio/figure/rectangle.mp3'
+    audio: '../src/audio/figure/rectangle.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Triangle',
     translate: 'Треугольник',
     image: '../src/img/figure/triangle.jpg',
-    audio: '../src/audio/figure/triangle.mp3'
+    audio: '../src/audio/figure/triangle.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Square',
     translate: 'Квадрат',
     image: '../src/img/figure/square.jpg',
-    audio: '../src/audio/figure/square.mp3'
+    audio: '../src/audio/figure/square.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Ellipse',
     translate: 'Эллипс',
     image: '../src/img/figure/ellipse.jpg',
-    audio: '../src/audio/figure/ellipse.mp3'
+    audio: '../src/audio/figure/ellipse.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Star',
     translate: 'Звезда',
     image: '../src/img/figure/star.jpg',
-    audio: '../src/audio/figure/star.mp3'
+    audio: '../src/audio/figure/star.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Diamond',
     translate: 'Ромб',
     image: '../src/img/figure/diamond.jpg',
-    audio: '../src/audio/figure/diamond.mp3'
+    audio: '../src/audio/figure/diamond.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Heart',
     translate: 'Сердце',
     image: '../src/img/figure/heart.jpg',
-    audio: '../src/audio/figure/heart.mp3'
+    audio: '../src/audio/figure/heart.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }],
   Nature: [{
     word: 'Tree',
     translate: 'Дерево',
     image: '../src/img/nature/tree.jpg',
-    audio: '../src/audio/nature/tree.mp3'
+    audio: '../src/audio/nature/tree.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Flower',
     translate: 'Цветок',
     image: '../src/img/nature/flower.jpg',
-    audio: '../src/audio/nature/flower.mp3'
+    audio: '../src/audio/nature/flower.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Sea',
     translate: 'Море',
     image: '../src/img/nature/sea.jpg',
-    audio: '../src/audio/nature/sea.mp3'
+    audio: '../src/audio/nature/sea.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Mountain',
     translate: 'Гора',
     image: '../src/img/nature/mountain.jpg',
-    audio: '../src/audio/nature/mountain.mp3'
+    audio: '../src/audio/nature/mountain.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Leaf',
     translate: 'Лист',
     image: '../src/img/nature/leaf.jpg',
-    audio: '../src/audio/nature/leaf.mp3'
+    audio: '../src/audio/nature/leaf.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Flame',
     translate: 'Пламя',
     image: '../src/img/nature/flame.jpg',
-    audio: '../src/audio/nature/flame.mp3'
+    audio: '../src/audio/nature/flame.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Grass',
     translate: 'Трава',
     image: '../src/img/nature/grass.jpg',
-    audio: '../src/audio/nature/grass.mp3'
+    audio: '../src/audio/nature/grass.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Sky',
     translate: 'Небо',
     image: '../src/img/nature/sky.jpg',
-    audio: '../src/audio/nature/sky.mp3'
+    audio: '../src/audio/nature/sky.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }],
   Emotion: [{
     word: 'Happy',
     translate: 'Счастливый',
     image: '../src/img/emotion/happy.jpg',
-    audio: '../src/audio/emotion/happy.mp3'
+    audio: '../src/audio/emotion/happy.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Angry',
     translate: 'Сердитый',
     image: '../src/img/emotion/angry.jpg',
-    audio: '../src/audio/emotion/angry.mp3'
+    audio: '../src/audio/emotion/angry.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Surprised',
     translate: 'Удивленный',
     image: '../src/img/emotion/surprised.jpg',
-    audio: '../src/audio/emotion/surprised.mp3'
+    audio: '../src/audio/emotion/surprised.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Sad',
     translate: 'Грустный',
     image: '../src/img/emotion/sad.jpg',
-    audio: '../src/audio/emotion/sad.mp3'
+    audio: '../src/audio/emotion/sad.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Smile',
     translate: 'Улыбка',
     image: '../src/img/emotion/smile.jpg',
-    audio: '../src/audio/emotion/smile.mp3'
+    audio: '../src/audio/emotion/smile.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Scared',
     translate: 'Испуганный',
     image: '../src/img/emotion/scared.jpg',
-    audio: '../src/audio/emotion/scared.mp3'
+    audio: '../src/audio/emotion/scared.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Laugh',
     translate: 'Смех',
     image: '../src/img/emotion/laugh.jpg',
-    audio: '../src/audio/emotion/laugh.mp3'
+    audio: '../src/audio/emotion/laugh.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Tired',
     translate: 'Уставший',
     image: '../src/img/emotion/tired.jpg',
-    audio: '../src/audio/emotion/tired.mp3'
+    audio: '../src/audio/emotion/tired.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }],
   Action: [{
     word: 'Cook',
     translate: 'Готовить',
     image: '../src/img/action/cook.jpg',
-    audio: '../src/audio/action/cook.mp3'
+    audio: '../src/audio/action/cook.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Dance',
     translate: 'Танцевать',
     image: '../src/img/action/dance.jpg',
-    audio: '../src/audio/action/dance.mp3'
+    audio: '../src/audio/action/dance.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Draw',
     translate: 'Рисовать',
     image: '../src/img/action/draw.jpg',
-    audio: '../src/audio/action/draw.mp3'
+    audio: '../src/audio/action/draw.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Sing',
     translate: 'Петь',
     image: '../src/img/action/sing.jpg',
-    audio: '../src/audio/action/sing.mp3'
+    audio: '../src/audio/action/sing.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Read',
     translate: 'Чиать',
     image: '../src/img/action/read.jpg',
-    audio: '../src/audio/action/read.mp3'
+    audio: '../src/audio/action/read.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Run',
     translate: 'Бегать',
     image: '../src/img/action/run.jpg',
-    audio: '../src/audio/action/run.mp3'
+    audio: '../src/audio/action/run.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Jump',
     translate: 'Прыгать',
     image: '../src/img/action/jump.jpg',
-    audio: '../src/audio/action/jump.mp3'
+    audio: '../src/audio/action/jump.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }, {
     word: 'Swim',
     translate: 'Ботинки',
     image: '../src/img/action/swim.jpg',
-    audio: '../src/audio/action/swim.mp3'
+    audio: '../src/audio/action/swim.mp3',
+    click: 0,
+    win: 0,
+    fail: 0,
+    proc: 0
   }],
   Categories: [{
     word: 'Family',
@@ -599,6 +868,23 @@ var data = {
   }, {
     word: 'Action',
     image: '../src/img/categories/Action.jpg'
+  }],
+  Statistics: [{
+    word: 'Family'
+  }, {
+    word: 'Clothes'
+  }, {
+    word: 'Animal'
+  }, {
+    word: 'Food'
+  }, {
+    word: 'Figures'
+  }, {
+    word: 'Nature'
+  }, {
+    word: 'Emotion'
+  }, {
+    word: 'Action'
   }]
 };
 /* harmony default export */ __webpack_exports__["default"] = (data);
@@ -656,7 +942,11 @@ var Card = /*#__PURE__*/function () {
       div.className = 'card';
       div.id = this.word;
       template += "<div class=\"front\">";
-      template += "<img class=\"image\" src=".concat(this.image, " alt=").concat(this.word, ">");
+
+      if (this.image) {
+        template += "<img class=\"image\" src=".concat(this.image, " alt=").concat(this.word, ">");
+      }
+
       template += "<div class=\"card_text\">";
       template += "<span class=\"word\">".concat(this.word, "</span>");
       template += "</div>";
@@ -707,17 +997,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPage", function() { return createPage; });
 /* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./data */ "./src/js/data.js");
 /* harmony import */ var _generate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./generate */ "./src/js/generate.js");
+/* harmony import */ var _statistic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./statistic */ "./src/js/statistic.js");
+
 
 
 
 var createPage = function createPage(choice) {
+  console.log(1);
   document.querySelector('.header__text_categories').innerHTML = choice;
 
   var renderCard = function renderCard() {
     var content = getContainer();
-    generateCards(_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice]).forEach(function (el) {
-      content.append(el.generateCard());
-    });
+
+    if (choice == 'Statistics') {
+      generateStats(_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice]).forEach(function (el) {
+        content.append(el.generateCard());
+      });
+    } else {
+      generateCards(_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice]).forEach(function (el) {
+        content.append(el.generateCard());
+      });
+    }
   };
 
   var getContainer = function getContainer() {
@@ -727,11 +1027,30 @@ var createPage = function createPage(choice) {
   };
 
   var generateCards = function generateCards(d) {
+    console.log(d);
     var cards = [];
     d.forEach(function (el) {
       cards.push(new _generate__WEBPACK_IMPORTED_MODULE_1__["Card"](el));
     });
     return cards;
+  };
+
+  var generateStats = function generateStats(d) {
+    var cards = [];
+    d.forEach(function (el) {
+      cards.push(generateCards(_data__WEBPACK_IMPORTED_MODULE_0__["default"][el.word]));
+    });
+    var cardList = [];
+    var k = 0;
+
+    for (var i = 0; i < cards.length; i++) {
+      for (var j = 0; j < cards[i].length; j++) {
+        k++;
+        cardList[k] = cards[i][j];
+      }
+    }
+
+    return cardList;
   };
 
   if (_data__WEBPACK_IMPORTED_MODULE_0__["default"]) {
@@ -772,7 +1091,7 @@ var Play = function Play() {
       document.querySelector('.content').append(div);
       var n = new _audio__WEBPACK_IMPORTED_MODULE_0__["Sound"](document.querySelector('.header__text_categories').innerHTML);
       var soundList = n.AudioGenerate();
-      var choice = n.AudioChoice(soundList);
+      var choice = n.AudioChoice(soundList); //PlayChoice(choice);
 
       document.querySelector('.button_start').onclick = function () {
         if (!document.querySelector('.button_start').classList.contains('repeat')) {
@@ -796,8 +1115,66 @@ var Play = function Play() {
     });
   }
 };
+/* const PlayChoice=()=>{
+  let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
+  let soundList =n.AudioGenerate();
+  let choice=n.AudioChoice(soundList);
+  return elem;
+} */
 
 
+
+
+/***/ }),
+
+/***/ "./src/js/statistic.js":
+/*!*****************************!*\
+  !*** ./src/js/statistic.js ***!
+  \*****************************/
+/*! exports provided: Statistic */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Statistic", function() { return Statistic; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Statistic = /*#__PURE__*/function () {
+  function Statistic(_ref) {
+    var word = _ref.word,
+        translate = _ref.translate,
+        click = _ref.click,
+        win = _ref.win,
+        fail = _ref.fail,
+        proc = _ref.proc;
+
+    _classCallCheck(this, Statistic);
+
+    this.word = word;
+    this.translate = translate;
+    this.click = click;
+    this.win = win;
+    this.fail = fail;
+    this.proc = proc;
+  }
+
+  _createClass(Statistic, [{
+    key: "generateStat",
+    value: function generateStat() {
+      var template = '';
+      var div = document.createElement('div');
+      template += "<span class=\"word\">".concat(this.word, "</span>");
+      div.innerHTML = template;
+      return div;
+    }
+  }]);
+
+  return Statistic;
+}();
 
 /***/ }),
 
