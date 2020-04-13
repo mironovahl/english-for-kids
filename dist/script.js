@@ -1184,12 +1184,12 @@ var Statistic = /*#__PURE__*/function () {
       template += "<img class=\"image\" src=".concat(this.image, " alt=").concat(this.word, ">");
       template += "</div>";
       template += "<div class=\"card-stat__text\">";
-      template += "<p class=\"word\">\u0421\u043B\u043E\u0432\u043E: ".concat(this.word, "</p>");
-      template += "<p class=\"word\">\u041F\u0435\u0440\u0435\u0432\u043E\u0434: ".concat(this.translate, "</p>");
-      template += "<p class=\"word\">\u041A\u043B\u0438\u043A\u0438: ".concat(this.click, " \u0440\u0430\u0437</p>");
-      template += "<p class=\"word\">\u0423\u0433\u0430\u0434\u0430\u043D\u043E: ".concat(this.win, " \u0440\u0430\u0437</p>");
-      template += "<p class=\"word\">\u041D\u0435 \u0443\u0433\u0430\u0434\u0430\u043D\u043E: ".concat(this.fail, " \u0440\u0430\u0437</p>");
-      template += "<p class=\"word\">% \u043E\u0448\u0438\u0431\u043E\u043A: ".concat(this.proc, "</p>");
+      template += "<p class=\"word\">".concat(this.word, "</p>");
+      template += "<p class=\"translate\">\u041F\u0435\u0440\u0435\u0432\u043E\u0434: ".concat(this.translate, "</p>");
+      template += "<p class=\"click\">\u041A\u043B\u0438\u043A\u0438: ".concat(this.click, " \u0440\u0430\u0437</p>");
+      template += "<p class=\"win\">\u0423\u0433\u0430\u0434\u0430\u043D\u043E: ".concat(this.win, " \u0440\u0430\u0437</p>");
+      template += "<p class=\"fail\">\u041D\u0435 \u0443\u0433\u0430\u0434\u0430\u043D\u043E: ".concat(this.fail, " \u0440\u0430\u0437</p>");
+      template += "<p class=\"proc\">% \u043E\u0448\u0438\u0431\u043E\u043A: ".concat(this.proc, "</p>");
       template += "</div>";
       div.innerHTML = template;
       return div;

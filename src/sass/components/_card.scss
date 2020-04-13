@@ -86,11 +86,16 @@
     width: 100%;
     height: 250px;
     object-fit: cover;
-    opacity: 0.3;
+    opacity: 0.2;
   }
   .card-stat__text{
     position: absolute;
+    width: 100%;
     top: 20px;
+    text-align: center;
+    .word{
+      @include font(35px);
+    }
     p{
       margin: 3px;
     }

@@ -18,15 +18,14 @@ export class Statistic{
     template+=`<img class="image" src=${this.image} alt=${this.word}>`;
     template += `</div>`;
     template += `<div class="card-stat__text">`;
-    template += `<p class="word">Слово: ${this.word}</p>`;
-    template += `<p class="word">Перевод: ${this.translate}</p>`;
-    template += `<p class="word">Клики: ${this.click} раз</p>`;
-    template += `<p class="word">Угадано: ${this.win} раз</p>`;
-    template += `<p class="word">Не угадано: ${this.fail} раз</p>`;
-    template += `<p class="word">% ошибок: ${this.proc}</p>`;
+    template += `<p class="word">${this.word}</p>`;
+    template += `<p class="translate">Перевод: ${this.translate}</p>`;
+    template += `<p class="click">Клики: ${this.click} раз</p>`;
+    template += `<p class="win">Угадано: ${this.win} раз</p>`;
+    template += `<p class="fail">Не угадано: ${this.fail} раз</p>`;
+    template += `<p class="proc">% ошибок: ${this.proc}</p>`;
     template += `</div>`;
     div.innerHTML=template;
     return div;
   }
-
 }
