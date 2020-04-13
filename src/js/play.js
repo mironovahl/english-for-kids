@@ -1,6 +1,6 @@
 import {Sound} from './audio';
 const Play=()=>{
-  if(document.querySelector('.header__switcher').classList.contains('check')){
+  if(document.querySelector('.header__switcher').classList.contains('check')&&document.querySelector('.header__text_categories').innerHTML!='Statistics'){
     document.querySelectorAll('.card').forEach(el=>el.classList.add('play'));
     document.querySelectorAll('.card-categories').forEach(el=>el.classList.add('play'));
     let div=document.createElement('div');

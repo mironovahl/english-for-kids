@@ -73,3 +73,26 @@
 .back{
   transform: rotateY(180deg);
 }
+
+.card-stat{
+  height: 250px;
+  width: 300px;
+  background-color: white;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: 20px;
+  position: relative;
+  img{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    opacity: 0.3;
+  }
+  .card-stat__text{
+    position: absolute;
+    top: 20px;
+    p{
+      margin: 3px;
+    }
+  }
+}

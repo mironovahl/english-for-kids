@@ -48,7 +48,7 @@ MENU.addEventListener('click',(event)=>{
   }
 })
 
-CONTENT.addEventListener('click',(event)=>{
+CONTENT.onclick=function(){
   document.querySelector('.sidebar').classList.remove('show');
   document.querySelector('.header__burger').classList.remove('open');
   if(event.target.classList.contains('rotate')){
@@ -64,15 +64,16 @@ CONTENT.addEventListener('click',(event)=>{
    for(let i = 0; i < ListCard.length; i++) {
     if(ListCard[i]==elem){
       let c =new Card(data[choice][i])
-      data[choice][i].stat+=1;
+      data[choice][i].click+=1;
       c.PlayAudio();
-      console.log(data[choice][i].stat)
+      console.log(data[choice][i].click)
     }
   }
   }
   else if(event.target.closest('.card')&&document.querySelector('.button_start').classList.contains('repeat')&&event.target.closest('.card').classList.contains('play')){
     let elem=event.target.closest('.card').id;
     let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
+    //проверка на совпадение
     console.log();
   }
   
@@ -80,7 +81,7 @@ CONTENT.addEventListener('click',(event)=>{
     createPage(event.target.closest('.card-categories').id)
     Play();
   }
-})
+}
 
 window.onload = function() {
   createPage('Categories');

@@ -2,14 +2,14 @@ import data from './data';
 import {Card} from './generate';
 import {Statistic} from './statistic';
 const createPage = (choice) => {
-  console.log(1);
   document.querySelector('.header__text_categories').innerHTML=choice;
     const renderCard = () => {
       let content = getContainer();
       if(choice=='Statistics'){
         generateStats(data[choice]).forEach(el => {
-          content.append(el.generateCard());
+          content.append(el.generateStat());
         })
+        document.querySelectorAll('.card').forEach(el=>el.classList.add('stat'));
       }
       else{
         generateCards(data[choice]).forEach(el => {
@@ -23,17 +23,25 @@ const createPage = (choice) => {
       return container;
     }
     const generateCards = (d) => {
-      console.log(d);
       let cards = [];
       d.forEach(el => {
           cards.push(new Card(el))
       });
       return cards;
     }
+
+    const generateCardStat = (d) => {
+      let cards = [];
+      d.forEach(el => {
+          cards.push(new Statistic(el))
+      });
+      return cards;
+    }
+
     const generateStats = (d) => {
       let cards = [];
       d.forEach(el => {
-          cards.push(generateCards(data[el.word]))
+          cards.push(generateCardStat(data[el.word]))
       });
 
       let cardList=[];

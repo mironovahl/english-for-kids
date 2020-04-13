@@ -13,8 +13,7 @@ export class Card{
     div.className='card';
     div.id=this.word;
     template+= `<div class="front">`;
-    if(this.image){
-      template+=`<img class="image" src=${this.image} alt=${this.word}>`;    }
+    template+=`<img class="image" src=${this.image} alt=${this.word}>`;
     template += `<div class="card_text">`;
     template += `<span class="word">${this.word}</span>`;
     template += `</div>`;

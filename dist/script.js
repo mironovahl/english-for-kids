@@ -148,7 +148,8 @@ MENU.addEventListener('click', function (event) {
     }
   }
 });
-CONTENT.addEventListener('click', function (event) {
+
+CONTENT.onclick = function () {
   document.querySelector('.sidebar').classList.remove('show');
   document.querySelector('.header__burger').classList.remove('open');
 
@@ -166,20 +167,21 @@ CONTENT.addEventListener('click', function (event) {
     for (var i = 0; i < ListCard.length; i++) {
       if (ListCard[i] == elem) {
         var c = new _js_generate__WEBPACK_IMPORTED_MODULE_1__["Card"](_js_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice][i]);
-        _js_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice][i].stat += 1;
+        _js_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice][i].click += 1;
         c.PlayAudio();
-        console.log(_js_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice][i].stat);
+        console.log(_js_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice][i].click);
       }
     }
   } else if (event.target.closest('.card') && document.querySelector('.button_start').classList.contains('repeat') && event.target.closest('.card').classList.contains('play')) {
     var _elem = event.target.closest('.card').id;
-    var n = new _js_audio__WEBPACK_IMPORTED_MODULE_4__["Sound"](document.querySelector('.header__text_categories').innerHTML);
+    var n = new _js_audio__WEBPACK_IMPORTED_MODULE_4__["Sound"](document.querySelector('.header__text_categories').innerHTML); //проверка на совпадение
+
     console.log();
   } else if (event.target.closest('.card-categories')) {
     Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])(event.target.closest('.card-categories').id);
     Object(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"])();
   }
-});
+};
 
 window.onload = function () {
   Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])('Categories');
@@ -942,11 +944,7 @@ var Card = /*#__PURE__*/function () {
       div.className = 'card';
       div.id = this.word;
       template += "<div class=\"front\">";
-
-      if (this.image) {
-        template += "<img class=\"image\" src=".concat(this.image, " alt=").concat(this.word, ">");
-      }
-
+      template += "<img class=\"image\" src=".concat(this.image, " alt=").concat(this.word, ">");
       template += "<div class=\"card_text\">";
       template += "<span class=\"word\">".concat(this.word, "</span>");
       template += "</div>";
@@ -1003,7 +1001,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var createPage = function createPage(choice) {
-  console.log(1);
   document.querySelector('.header__text_categories').innerHTML = choice;
 
   var renderCard = function renderCard() {
@@ -1011,7 +1008,10 @@ var createPage = function createPage(choice) {
 
     if (choice == 'Statistics') {
       generateStats(_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice]).forEach(function (el) {
-        content.append(el.generateCard());
+        content.append(el.generateStat());
+      });
+      document.querySelectorAll('.card').forEach(function (el) {
+        return el.classList.add('stat');
       });
     } else {
       generateCards(_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice]).forEach(function (el) {
@@ -1027,7 +1027,6 @@ var createPage = function createPage(choice) {
   };
 
   var generateCards = function generateCards(d) {
-    console.log(d);
     var cards = [];
     d.forEach(function (el) {
       cards.push(new _generate__WEBPACK_IMPORTED_MODULE_1__["Card"](el));
@@ -1035,10 +1034,18 @@ var createPage = function createPage(choice) {
     return cards;
   };
 
+  var generateCardStat = function generateCardStat(d) {
+    var cards = [];
+    d.forEach(function (el) {
+      cards.push(new _statistic__WEBPACK_IMPORTED_MODULE_2__["Statistic"](el));
+    });
+    return cards;
+  };
+
   var generateStats = function generateStats(d) {
     var cards = [];
     d.forEach(function (el) {
-      cards.push(generateCards(_data__WEBPACK_IMPORTED_MODULE_0__["default"][el.word]));
+      cards.push(generateCardStat(_data__WEBPACK_IMPORTED_MODULE_0__["default"][el.word]));
     });
     var cardList = [];
     var k = 0;
@@ -1076,7 +1083,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Play = function Play() {
-  if (document.querySelector('.header__switcher').classList.contains('check')) {
+  if (document.querySelector('.header__switcher').classList.contains('check') && document.querySelector('.header__text_categories').innerHTML != 'Statistics') {
     document.querySelectorAll('.card').forEach(function (el) {
       return el.classList.add('play');
     });
@@ -1147,6 +1154,8 @@ var Statistic = /*#__PURE__*/function () {
   function Statistic(_ref) {
     var word = _ref.word,
         translate = _ref.translate,
+        image = _ref.image,
+        audio = _ref.audio,
         click = _ref.click,
         win = _ref.win,
         fail = _ref.fail,
@@ -1156,6 +1165,8 @@ var Statistic = /*#__PURE__*/function () {
 
     this.word = word;
     this.translate = translate;
+    this.image = image;
+    this.audio = audio;
     this.click = click;
     this.win = win;
     this.fail = fail;
@@ -1167,7 +1178,19 @@ var Statistic = /*#__PURE__*/function () {
     value: function generateStat() {
       var template = '';
       var div = document.createElement('div');
-      template += "<span class=\"word\">".concat(this.word, "</span>");
+      div.className = 'card-stat';
+      div.id = this.word;
+      template += "<div class=\"card-stat__img\">";
+      template += "<img class=\"image\" src=".concat(this.image, " alt=").concat(this.word, ">");
+      template += "</div>";
+      template += "<div class=\"card-stat__text\">";
+      template += "<p class=\"word\">\u0421\u043B\u043E\u0432\u043E: ".concat(this.word, "</p>");
+      template += "<p class=\"word\">\u041F\u0435\u0440\u0435\u0432\u043E\u0434: ".concat(this.translate, "</p>");
+      template += "<p class=\"word\">\u041A\u043B\u0438\u043A\u0438: ".concat(this.click, " \u0440\u0430\u0437</p>");
+      template += "<p class=\"word\">\u0423\u0433\u0430\u0434\u0430\u043D\u043E: ".concat(this.win, " \u0440\u0430\u0437</p>");
+      template += "<p class=\"word\">\u041D\u0435 \u0443\u0433\u0430\u0434\u0430\u043D\u043E: ".concat(this.fail, " \u0440\u0430\u0437</p>");
+      template += "<p class=\"word\">% \u043E\u0448\u0438\u0431\u043E\u043A: ".concat(this.proc, "</p>");
+      template += "</div>";
       div.innerHTML = template;
       return div;
     }
