@@ -1,8 +1,9 @@
 .content{
   @extend %font;
   @include font(27px,32px);
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  padding: 40px 80px;
+  padding: 90px 40px;
 }

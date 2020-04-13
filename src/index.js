@@ -3,10 +3,12 @@ import {Card} from './js/generate';
 import {createPage} from './js/generatePage';
 import {Play} from './js/play';
 import {Sound} from './js/audio';
+import {close} from './js/close';
 const BURGER=document.querySelector('.header__burger');
 const MENU=document.querySelector('.sidebar');
 const CONTENT=document.querySelector('.content');
 const SWITCH=document.querySelector('.header__switcher');
+const HEADER=document.querySelector('header');
 
 BURGER.addEventListener('click',(event)=>{
   if(document.querySelector('.sidebar').classList.contains('show')){
@@ -49,8 +51,7 @@ MENU.addEventListener('click',(event)=>{
 })
 
 CONTENT.onclick=function(){
-  document.querySelector('.sidebar').classList.remove('show');
-  document.querySelector('.header__burger').classList.remove('open');
+  close();
   if(event.target.classList.contains('rotate')){
     event.target.closest('.card').classList.add('translate');
     event.target.closest('.card').onmouseleave=()=>{
@@ -83,6 +84,10 @@ CONTENT.onclick=function(){
   }
 }
 
+HEADER.addEventListener('click',(event)=>{
+  if(!event.target.classList.contains('header__burger')&&!event.target.closest('header__burger'))
+  close();
+})
 window.onload = function() {
   createPage('Categories');
 }

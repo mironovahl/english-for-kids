@@ -100,6 +100,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_generatePage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/generatePage */ "./src/js/generatePage.js");
 /* harmony import */ var _js_play__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/play */ "./src/js/play.js");
 /* harmony import */ var _js_audio__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/audio */ "./src/js/audio.js");
+/* harmony import */ var _js_close__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/close */ "./src/js/close.js");
+
 
 
 
@@ -109,6 +111,7 @@ var BURGER = document.querySelector('.header__burger');
 var MENU = document.querySelector('.sidebar');
 var CONTENT = document.querySelector('.content');
 var SWITCH = document.querySelector('.header__switcher');
+var HEADER = document.querySelector('header');
 BURGER.addEventListener('click', function (event) {
   if (document.querySelector('.sidebar').classList.contains('show')) {
     document.querySelector('.sidebar').classList.remove('show');
@@ -150,8 +153,7 @@ MENU.addEventListener('click', function (event) {
 });
 
 CONTENT.onclick = function () {
-  document.querySelector('.sidebar').classList.remove('show');
-  document.querySelector('.header__burger').classList.remove('open');
+  Object(_js_close__WEBPACK_IMPORTED_MODULE_5__["close"])();
 
   if (event.target.classList.contains('rotate')) {
     event.target.closest('.card').classList.add('translate');
@@ -182,6 +184,10 @@ CONTENT.onclick = function () {
     Object(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"])();
   }
 };
+
+HEADER.addEventListener('click', function (event) {
+  if (!event.target.classList.contains('header__burger') && !event.target.closest('header__burger')) Object(_js_close__WEBPACK_IMPORTED_MODULE_5__["close"])();
+});
 
 window.onload = function () {
   Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])('Categories');
@@ -249,6 +255,25 @@ var Sound = /*#__PURE__*/function () {
 
   return Sound;
 }();
+
+/***/ }),
+
+/***/ "./src/js/close.js":
+/*!*************************!*\
+  !*** ./src/js/close.js ***!
+  \*************************/
+/*! exports provided: close */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "close", function() { return close; });
+var close = function close() {
+  document.querySelector('.sidebar').classList.remove('show');
+  document.querySelector('.header__burger').classList.remove('open');
+};
+
+
 
 /***/ }),
 

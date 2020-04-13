@@ -3,6 +3,9 @@
   @extend %font;
   background-color: white;
   height: 90px;
+  position: fixed;
+  width: 100vw;
+  z-index: 2;
 }
 .header__text{
   margin: auto;
