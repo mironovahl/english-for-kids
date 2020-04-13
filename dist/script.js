@@ -98,6 +98,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/data */ "./src/js/data.js");
 /* harmony import */ var _js_generate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/generate */ "./src/js/generate.js");
 /* harmony import */ var _js_generatePage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/generatePage */ "./src/js/generatePage.js");
+/* harmony import */ var _js_play__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/play */ "./src/js/play.js");
+/* harmony import */ var _js_audio__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/audio */ "./src/js/audio.js");
+
+
 
 
 
@@ -114,26 +118,13 @@ BURGER.addEventListener('click', function (event) {
     document.querySelector('.sidebar').classList.add('show');
   }
 });
-
-var Play = function Play() {
-  if (document.querySelector('.header__switcher').classList.contains('check')) {
-    document.querySelectorAll('.card').forEach(function (el) {
-      return el.classList.add('play');
-    });
-  } else {
-    document.querySelectorAll('.card').forEach(function (el) {
-      return el.classList.remove('play');
-    });
-  }
-};
-
 SWITCH.addEventListener('click', function (event) {
   if (document.querySelector('.header__switcher').classList.contains('check')) {
     document.querySelector('.header__switcher').classList.remove('check');
-    Play();
+    Object(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"])();
   } else {
     document.querySelector('.header__switcher').classList.add('check');
-    Play();
+    Object(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"])();
   }
 });
 MENU.addEventListener('click', function (event) {
@@ -153,7 +144,7 @@ MENU.addEventListener('click', function (event) {
       }
 
       Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])(choice);
-      Play();
+      Object(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"])();
     }
   }
 });
@@ -164,7 +155,7 @@ CONTENT.addEventListener('click', function (event) {
     event.target.closest('.card').onmouseleave = function () {
       event.target.closest('.card').classList.remove('translate');
     };
-  } else if (event.target.closest('.card') && !event.target.closest('.card').classList.contains('translate')) {
+  } else if (event.target.closest('.card') && !event.target.closest('.card').classList.contains('translate') && !event.target.closest('.card').classList.contains('play')) {
     var elem = event.target.closest('.card');
     var choice = document.querySelector('.header__text_categories').innerHTML;
     var ListCard = document.querySelector('.content').childNodes;
@@ -175,15 +166,74 @@ CONTENT.addEventListener('click', function (event) {
         c.PlayAudio();
       }
     }
+  } else if (event.target.closest('.card') && document.querySelector('.button_start').classList.contains('repeat') && event.target.closest('.card').classList.contains('play')) {
+    var _elem = event.target.closest('.card').id;
+    var n = new _js_audio__WEBPACK_IMPORTED_MODULE_4__["Sound"](document.querySelector('.header__text_categories').innerHTML);
   } else if (event.target.closest('.card-categories')) {
     Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])(event.target.closest('.card-categories').id);
-    Play();
+    Object(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"])();
   }
 });
 
 window.onload = function () {
   Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])('Categories');
 };
+
+/***/ }),
+
+/***/ "./src/js/audio.js":
+/*!*************************!*\
+  !*** ./src/js/audio.js ***!
+  \*************************/
+/*! exports provided: Sound */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Sound", function() { return Sound; });
+/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./data */ "./src/js/data.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+var Sound = /*#__PURE__*/function () {
+  function Sound(categ) {
+    _classCallCheck(this, Sound);
+
+    this.categ = categ;
+  }
+
+  _createClass(Sound, [{
+    key: "AudioGenerate",
+    value: function AudioGenerate() {
+      var sounds = [];
+
+      for (var i = 0; i < _data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ].length; i++) {
+        sounds[i] = _data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].audio;
+      }
+
+      return sounds;
+    }
+  }, {
+    key: "AudioChoice",
+    value: function AudioChoice(sounds) {
+      var rand = Math.floor(Math.random() * sounds.length);
+      var audio = new Audio(sounds[rand]);
+      return audio;
+    }
+  }, {
+    key: "Repeat",
+    value: function Repeat(audio) {
+      this.audio = audio;
+      audio.play();
+    }
+  }]);
+
+  return Sound;
+}();
 
 /***/ }),
 
@@ -686,6 +736,64 @@ var createPage = function createPage(choice) {
 
   if (_data__WEBPACK_IMPORTED_MODULE_0__["default"]) {
     renderCard();
+  }
+};
+
+
+
+/***/ }),
+
+/***/ "./src/js/play.js":
+/*!************************!*\
+  !*** ./src/js/play.js ***!
+  \************************/
+/*! exports provided: Play */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Play", function() { return Play; });
+/* harmony import */ var _audio__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./audio */ "./src/js/audio.js");
+
+
+var Play = function Play() {
+  if (document.querySelector('.header__switcher').classList.contains('check')) {
+    document.querySelectorAll('.card').forEach(function (el) {
+      return el.classList.add('play');
+    });
+    document.querySelectorAll('.card-categories').forEach(function (el) {
+      return el.classList.add('play');
+    });
+    var div = document.createElement('div');
+
+    if (document.querySelector('.content').children[1].classList.contains('card')) {
+      div.className = 'button game';
+      div.innerHTML = "<button class=\"button_start\">Start game</button>";
+      document.querySelector('.content').append(div);
+      var n = new _audio__WEBPACK_IMPORTED_MODULE_0__["Sound"](document.querySelector('.header__text_categories').innerHTML);
+      var soundList = n.AudioGenerate();
+      var choice = n.AudioChoice(soundList);
+
+      document.querySelector('.button_start').onclick = function () {
+        if (!document.querySelector('.button_start').classList.contains('repeat')) {
+          document.querySelector('.button_start').classList.add('repeat');
+          document.querySelector('.button_start').innerHTML = 'R';
+          n.Repeat(choice);
+        } else {
+          n.Repeat(choice);
+        }
+      };
+    }
+  } else {
+    document.querySelectorAll('.card').forEach(function (el) {
+      return el.classList.remove('play');
+    });
+    document.querySelectorAll('.card-categories').forEach(function (el) {
+      return el.classList.remove('play');
+    });
+    document.querySelectorAll('.button').forEach(function (el) {
+      return el.classList.remove('game');
+    });
   }
 };
 

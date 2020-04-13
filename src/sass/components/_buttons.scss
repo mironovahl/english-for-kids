@@ -90,3 +90,26 @@
   }
 }
 
+.button{
+  display: none;
+  text-align: center;
+  margin: 30px;
+  width: 100%;
+  @extend %font;
+  @include font(27px,32px);
+  &.game{
+    display: block;
+  }
+  .button_start{
+    outline: none;
+    border-radius: 10px;
+    width: 350px;
+    height: 60px;
+    &.repeat{
+      border-radius: 50%;
+      width: 60px;
+    }
+  }
+}
+
+

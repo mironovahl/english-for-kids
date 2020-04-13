@@ -24,6 +24,7 @@ const createPage = (choice) => {
   if(data) {
     renderCard();
   }
+
 }
 
 export {createPage}

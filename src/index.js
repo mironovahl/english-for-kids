@@ -1,6 +1,8 @@
 import data from './js/data';
 import {Card} from './js/generate';
 import {createPage} from './js/generatePage';
+import {Play} from './js/play';
+import {Sound} from './js/audio';
 const BURGER=document.querySelector('.header__burger');
 const MENU=document.querySelector('.sidebar');
 const CONTENT=document.querySelector('.content');
@@ -18,15 +20,6 @@ BURGER.addEventListener('click',(event)=>{
   }
 })
 
-const Play=()=>{
-  if(document.querySelector('.header__switcher').classList.contains('check')){
-    document.querySelectorAll('.card').forEach(el=>el.classList.add('play'));
-  }
-  else{
-    document.querySelectorAll('.card').forEach(el=>el.classList.remove('play'));
-  }
-}
-
 SWITCH.addEventListener('click',(event)=>{
   if(document.querySelector('.header__switcher').classList.contains('check')){
     document.querySelector('.header__switcher').classList.remove('check');
@@ -35,7 +28,6 @@ SWITCH.addEventListener('click',(event)=>{
   else{
     document.querySelector('.header__switcher').classList.add('check');
     Play();
-
   }
 })
 
@@ -56,7 +48,6 @@ MENU.addEventListener('click',(event)=>{
   }
 })
 
-
 CONTENT.addEventListener('click',(event)=>{
   if(event.target.classList.contains('rotate')){
     event.target.closest('.card').classList.add('translate');
@@ -64,7 +55,7 @@ CONTENT.addEventListener('click',(event)=>{
       event.target.closest('.card').classList.remove('translate');
     }
   }
-  else if(event.target.closest('.card')&&!event.target.closest('.card').classList.contains('translate')){
+  else if(event.target.closest('.card')&&!event.target.closest('.card').classList.contains('translate')&&!event.target.closest('.card').classList.contains('play')){
     let elem=event.target.closest('.card');
     let choice =document.querySelector('.header__text_categories').innerHTML;
    let ListCard=document.querySelector('.content').childNodes;
@@ -75,6 +66,11 @@ CONTENT.addEventListener('click',(event)=>{
     }
   }
   }
+  else if(event.target.closest('.card')&&document.querySelector('.button_start').classList.contains('repeat')&&event.target.closest('.card').classList.contains('play')){
+    let elem=event.target.closest('.card').id;
+     let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
+  }
+  
   else if(event.target.closest('.card-categories')){
     createPage(event.target.closest('.card-categories').id)
     Play();
