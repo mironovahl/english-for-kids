@@ -71,7 +71,7 @@ CONTENT.onclick=function(){
     }
   }
   }
-  else if(event.target.closest('.card')&&document.querySelector('.button_start').classList.contains('repeat')&&event.target.closest('.card').classList.contains('play')){
+  else if(event.target.closest('.card')&&!event.target.closest('.card').classList.contains('translate')&&document.querySelector('.button_start').classList.contains('repeat')&&event.target.closest('.card').classList.contains('play')){
     let elem=event.target.closest('.card').id;
     let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
     //проверка на совпадение

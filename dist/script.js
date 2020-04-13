@@ -174,7 +174,7 @@ CONTENT.onclick = function () {
         console.log(_js_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice][i].click);
       }
     }
-  } else if (event.target.closest('.card') && document.querySelector('.button_start').classList.contains('repeat') && event.target.closest('.card').classList.contains('play')) {
+  } else if (event.target.closest('.card') && !event.target.closest('.card').classList.contains('translate') && document.querySelector('.button_start').classList.contains('repeat') && event.target.closest('.card').classList.contains('play')) {
     var _elem = event.target.closest('.card').id;
     var n = new _js_audio__WEBPACK_IMPORTED_MODULE_4__["Sound"](document.querySelector('.header__text_categories').innerHTML); //проверка на совпадение
 
