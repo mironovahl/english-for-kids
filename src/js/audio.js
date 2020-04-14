@@ -1,5 +1,4 @@
 import data from './data';
-let dataS = JSON.parse(localStorage.getItem("data"));
 export class Sound{
   constructor (categ){
     this.categ=categ;
@@ -26,9 +25,9 @@ export class Sound{
       if(data[this.categ][i].word==id){
         if(data[this.categ][i].audio==randAudio){
           let audio=new Audio('../src/audio/correct.mp3');
-          console.log(data[this.categ][i].win);
-          data[this.categ][i].win+=1;
-          localStorage.setItem ("data", JSON.stringify(data));
+          let dataS = JSON.parse(localStorage.getItem("data"));
+          dataS[this.categ][i].win+=1;
+          localStorage.setItem ("data", JSON.stringify(dataS));
           audio.play();
           return true
         }
@@ -37,8 +36,9 @@ export class Sound{
           audio.play();
           for(let i = 0; i < data[this.categ].length; i++) {
             if(data[this.categ][i].audio==randAudio){
-              data[this.categ][i].fail+=1;
-              localStorage.setItem ("data", JSON.stringify(data));
+              let dataS = JSON.parse(localStorage.getItem("data"));
+              dataS[this.categ][i].fail+=1;
+              localStorage.setItem ("data", JSON.stringify(dataS));
             }
           }
           return false;

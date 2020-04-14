@@ -17,7 +17,6 @@ if(dataS==null){
   localStorage.setItem("data", JSON.stringify(data));
   dataS = JSON.parse(localStorage.getItem("data"));
 }
-console.log(dataS);
 BURGER.addEventListener('click',(event)=>{
   if(document.querySelector('.sidebar').classList.contains('show')){
     document.querySelector('.sidebar').classList.remove('show');
@@ -43,6 +42,7 @@ SWITCH.addEventListener('click',(event)=>{
 
 MENU.addEventListener('click',(event)=>{
   if(event.target.closest('.menu')){
+//    localStorage.setItem ("data", JSON.stringify(dataS))
     MENU.querySelectorAll('li').forEach(el=>el.classList.remove('active'));
     event.target.classList.add('active');
     if(!event.target.classList.contains('menu__categories')){
@@ -65,7 +65,6 @@ MENU.addEventListener('click',(event)=>{
 })
 
 CONTENT.onclick=function(){
-  console.log(dataS);
   close();
   if(event.target.classList.contains('button-sort')){
     document.querySelector('.header__text_categories').classList.add('yes');

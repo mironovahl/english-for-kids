@@ -121,7 +121,6 @@ if (dataS == null) {
   dataS = JSON.parse(localStorage.getItem("data"));
 }
 
-console.log(dataS);
 BURGER.addEventListener('click', function (event) {
   if (document.querySelector('.sidebar').classList.contains('show')) {
     document.querySelector('.sidebar').classList.remove('show');
@@ -142,6 +141,7 @@ SWITCH.addEventListener('click', function (event) {
 });
 MENU.addEventListener('click', function (event) {
   if (event.target.closest('.menu')) {
+    //    localStorage.setItem ("data", JSON.stringify(dataS))
     MENU.querySelectorAll('li').forEach(function (el) {
       return el.classList.remove('active');
     });
@@ -170,7 +170,6 @@ MENU.addEventListener('click', function (event) {
 });
 
 CONTENT.onclick = function () {
-  console.log(dataS);
   Object(_js_close__WEBPACK_IMPORTED_MODULE_5__["close"])();
 
   if (event.target.classList.contains('button-sort')) {
@@ -242,7 +241,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
-var dataS = JSON.parse(localStorage.getItem("data"));
 var Sound = /*#__PURE__*/function () {
   function Sound(categ) {
     _classCallCheck(this, Sound);
@@ -283,9 +281,9 @@ var Sound = /*#__PURE__*/function () {
         if (_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].word == id) {
           if (_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].audio == randAudio) {
             var audio = new Audio('../src/audio/correct.mp3');
-            console.log(_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].win);
-            _data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].win += 1;
-            localStorage.setItem("data", JSON.stringify(_data__WEBPACK_IMPORTED_MODULE_0__["default"]));
+            var dataS = JSON.parse(localStorage.getItem("data"));
+            dataS[this.categ][i].win += 1;
+            localStorage.setItem("data", JSON.stringify(dataS));
             audio.play();
             return true;
           } else {
@@ -295,8 +293,10 @@ var Sound = /*#__PURE__*/function () {
 
             for (var _i = 0; _i < _data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ].length; _i++) {
               if (_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][_i].audio == randAudio) {
-                _data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][_i].fail += 1;
-                localStorage.setItem("data", JSON.stringify(_data__WEBPACK_IMPORTED_MODULE_0__["default"]));
+                var _dataS = JSON.parse(localStorage.getItem("data"));
+
+                _dataS[this.categ][_i].fail += 1;
+                localStorage.setItem("data", JSON.stringify(_dataS));
               }
             }
 
@@ -1094,7 +1094,7 @@ var createPage = function createPage(choice) {
         return el.classList.add('stat');
       });
     } else {
-      generateCards(_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice]).forEach(function (el) {
+      generateCards(dataS[choice]).forEach(function (el) {
         content.append(el.generateCard());
       });
     }
@@ -1152,7 +1152,7 @@ var createPage = function createPage(choice) {
     return d;
   };
 
-  if (_data__WEBPACK_IMPORTED_MODULE_0__["default"]) {
+  if (dataS) {
     renderCard();
   }
 };
