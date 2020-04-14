@@ -11,7 +11,7 @@ const CONTENT=document.querySelector('.content');
 const SWITCH=document.querySelector('.header__switcher');
 const HEADER=document.querySelector('header');
 //localStorage.setItem("data", JSON.stringify(data));
-
+let count=0 ;
 let dataS = JSON.parse(localStorage.getItem("data"));
 if(dataS==null){
   localStorage.setItem("data", JSON.stringify(data));
@@ -50,7 +50,7 @@ MENU.addEventListener('click',(event)=>{
       document.querySelector('.header__burger').classList.remove('open');
       let choice=event.target.innerText;
       if(event.target.innerText=='Main'){
-        choice='Categories'
+        choice='Categories';
       }
       if(event.target.innerText=='Statistics'){
         let div=document.createElement('div');
@@ -92,10 +92,17 @@ CONTENT.onclick=function(){
   else if(event.target.closest('.card')&&!event.target.closest('.card').classList.contains('translate')&&document.querySelector('.button_start').classList.contains('repeat')&&event.target.closest('.card').classList.contains('play')){
     let elem=event.target.closest('.card').id;
     let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
+    let soundList=JSON.parse(localStorage.getItem("soundList"));
+    console.log(soundList)
     let m=localStorage.getItem("randAudio");
     n.Check(elem,m);
+    if(n.Check(elem,m)){
+      let k=n.AudioChoice(soundList,count);
+      count++;
+      console.log(count);
+      n.Repeat(k);
+    }
   }
-  
   else if(event.target.closest('.card-categories')){
     createPage(event.target.closest('.card-categories').id)
     Play();

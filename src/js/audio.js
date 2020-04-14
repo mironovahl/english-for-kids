@@ -10,12 +10,12 @@ export class Sound{
     for(let i=0;i<data[this.categ].length;i++){
       sounds[i]=data[this.categ][i].audio;
     }
-    return sounds
+    localStorage.setItem("soundList", JSON.stringify(sounds.sort(()=>Math.random()-0.5)))
+    return sounds.sort(()=>Math.random()-0.5)
   }
-  AudioChoice(sounds){
-    let rand = Math.floor(Math.random() * sounds.length);
-    let audio=new Audio(sounds[rand]);
-    localStorage.setItem ("randAudio", sounds[rand]);
+  AudioChoice(sounds,i){
+    let audio=new Audio(sounds[i]);
+    localStorage.setItem ("randAudio", sounds[i]);
     return audio;
   }
   Repeat(audio){
@@ -30,6 +30,7 @@ export class Sound{
           dataS[this.categ][i].win+=1;
           localStorage.setItem ("data", JSON.stringify(dataS));
           audio.play();
+          return true
         }
         else{
           let audio=new Audio('../src/audio/error.mp3');
@@ -40,6 +41,7 @@ export class Sound{
               localStorage.setItem ("data", JSON.stringify(dataS));
             }
           }
+          return false;
         }
       }
     }

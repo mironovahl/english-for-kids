@@ -10,7 +10,7 @@ const Play=()=>{
       document.querySelector('.content').append(div);
       let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
       let soundList =n.AudioGenerate();
-      let choice=n.AudioChoice(soundList);
+      let choice=n.AudioChoice(soundList,0);
       //PlayChoice(choice);
       document.querySelector('.button_start').onclick=function(){
         if(!document.querySelector('.button_start').classList.contains('repeat')){
@@ -19,6 +19,8 @@ const Play=()=>{
           n.Repeat(choice);
         }
         else{
+          let m=localStorage.getItem("randAudio");
+          let choice=new Audio(m);
           n.Repeat(choice);
         }
       }
