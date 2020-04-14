@@ -10,7 +10,7 @@ const MENU=document.querySelector('.sidebar');
 const CONTENT=document.querySelector('.content');
 const SWITCH=document.querySelector('.header__switcher');
 const HEADER=document.querySelector('header');
-//localStorage.setItem("data", JSON.stringify(data));
+localStorage.setItem("data", JSON.stringify(data));
 
 let dataS = JSON.parse(localStorage.getItem("data"));
 BURGER.addEventListener('click',(event)=>{
