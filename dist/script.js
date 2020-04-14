@@ -114,6 +114,13 @@ var SWITCH = document.querySelector('.header__switcher');
 var HEADER = document.querySelector('header'); //localStorage.setItem("data", JSON.stringify(data));
 
 var dataS = JSON.parse(localStorage.getItem("data"));
+
+if (dataS == null) {
+  localStorage.setItem("data", JSON.stringify(_js_data__WEBPACK_IMPORTED_MODULE_0__["default"]));
+  dataS = JSON.parse(localStorage.getItem("data"));
+}
+
+console.log(dataS);
 BURGER.addEventListener('click', function (event) {
   if (document.querySelector('.sidebar').classList.contains('show')) {
     document.querySelector('.sidebar').classList.remove('show');
@@ -1051,7 +1058,6 @@ var createPage = function createPage(choice) {
         return el.classList.add('stat');
       });
     } else {
-      localStorage.setItem("data", JSON.stringify(_data__WEBPACK_IMPORTED_MODULE_0__["default"]));
       generateCards(_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice]).forEach(function (el) {
         content.append(el.generateCard());
       });
@@ -1111,7 +1117,7 @@ var createPage = function createPage(choice) {
     return d;
   };
 
-  if (_data__WEBPACK_IMPORTED_MODULE_0__["default"] || dataS) {
+  if (_data__WEBPACK_IMPORTED_MODULE_0__["default"]) {
     renderCard();
   }
 };

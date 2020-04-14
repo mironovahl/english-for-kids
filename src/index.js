@@ -13,6 +13,11 @@ const HEADER=document.querySelector('header');
 //localStorage.setItem("data", JSON.stringify(data));
 
 let dataS = JSON.parse(localStorage.getItem("data"));
+if(dataS==null){
+  localStorage.setItem("data", JSON.stringify(data));
+  dataS = JSON.parse(localStorage.getItem("data"));
+}
+console.log(dataS);
 BURGER.addEventListener('click',(event)=>{
   if(document.querySelector('.sidebar').classList.contains('show')){
     document.querySelector('.sidebar').classList.remove('show');
@@ -73,7 +78,6 @@ CONTENT.onclick=function(){
     if(ListCard[i]==elem){
       let c =new Card(dataS[choice][i])
       dataS[choice][i].click+=1;
-
       localStorage.setItem ("data", JSON.stringify(dataS));
       c.PlayAudio();
     }
@@ -98,5 +102,4 @@ HEADER.addEventListener('click',(event)=>{
 })
 window.onload = function() {
   createPage('Categories');
-  localStorage.setItem("data", JSON.stringify(data));
 }
