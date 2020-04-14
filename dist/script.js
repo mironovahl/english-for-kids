@@ -155,6 +155,13 @@ MENU.addEventListener('click', function (event) {
         choice = 'Categories';
       }
 
+      if (event.target.innerText == 'Statistics') {
+        var div = document.createElement('div');
+        div.className = 'sort';
+        div.innerHTML = "<button class=\"button-sort\">Sorting</button>";
+        document.querySelector('main').prepend(div);
+      }
+
       Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])(choice);
       Object(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"])();
     }
@@ -190,9 +197,9 @@ CONTENT.onclick = function () {
     }
   } else if (event.target.closest('.card') && !event.target.closest('.card').classList.contains('translate') && document.querySelector('.button_start').classList.contains('repeat') && event.target.closest('.card').classList.contains('play')) {
     var _elem = event.target.closest('.card').id;
-    var n = new _js_audio__WEBPACK_IMPORTED_MODULE_4__["Sound"](document.querySelector('.header__text_categories').innerHTML); //проверка на совпадение
-
-    console.log();
+    var n = new _js_audio__WEBPACK_IMPORTED_MODULE_4__["Sound"](document.querySelector('.header__text_categories').innerHTML);
+    var m = localStorage.getItem("randAudio");
+    n.Check(_elem, m);
   } else if (event.target.closest('.card-categories')) {
     Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])(event.target.closest('.card-categories').id);
     Object(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"])();
@@ -250,6 +257,7 @@ var Sound = /*#__PURE__*/function () {
     value: function AudioChoice(sounds) {
       var rand = Math.floor(Math.random() * sounds.length);
       var audio = new Audio(sounds[rand]);
+      localStorage.setItem("randAudio", sounds[rand]);
       return audio;
     }
   }, {
@@ -258,13 +266,18 @@ var Sound = /*#__PURE__*/function () {
       this.audio = audio;
       audio.play();
     }
-    /*   Check(id){
-        if(data[this.categ][id].audio==audio){
-          let audio=new Audio('../src/audio/correct.mp3');
-          audio.play();
+  }, {
+    key: "Check",
+    value: function Check(id, randAudio) {
+      for (var i = 0; i < _data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ].length; i++) {
+        if (_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].word == id) {
+          if (_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].audio == randAudio) {
+            var audio = new Audio('../src/audio/correct.mp3');
+            audio.play();
+          }
         }
-      } */
-
+      }
+    }
   }]);
 
   return Sound;
@@ -1047,10 +1060,6 @@ var createPage = function createPage(choice) {
     var content = getContainer();
 
     if (choice == 'Statistics') {
-      var div = document.createElement('div');
-      div.className = 'sort';
-      div.innerHTML = "<button class=\"button-sort\">Sorting</button>";
-      document.querySelector('.content').append(div);
       generateStats(dataS[choice]).forEach(function (el) {
         content.append(el.generateStat());
       });

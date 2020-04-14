@@ -52,6 +52,12 @@ MENU.addEventListener('click',(event)=>{
       if(event.target.innerText=='Main'){
         choice='Categories'
       }
+      if(event.target.innerText=='Statistics'){
+        let div=document.createElement('div');
+        div.className='sort';
+        div.innerHTML=`<button class="button-sort">Sorting</button>`
+        document.querySelector('main').prepend(div);
+      }
       createPage(choice);
       Play();
     }
@@ -73,21 +79,21 @@ CONTENT.onclick=function(){
   else if(event.target.closest('.card')&&!event.target.closest('.card').classList.contains('translate')&&!event.target.closest('.card').classList.contains('play')){
     let elem=event.target.closest('.card');
     let choice =document.querySelector('.header__text_categories').innerHTML;
-   let ListCard=document.querySelector('.content').childNodes;
-   for(let i = 0; i < ListCard.length; i++) {
-    if(ListCard[i]==elem){
-      let c =new Card(dataS[choice][i])
-      dataS[choice][i].click+=1;
-      localStorage.setItem ("data", JSON.stringify(dataS));
-      c.PlayAudio();
+    let ListCard=document.querySelector('.content').childNodes;
+    for(let i = 0; i < ListCard.length; i++) {
+      if(ListCard[i]==elem){
+        let c =new Card(dataS[choice][i])
+        dataS[choice][i].click+=1;
+        localStorage.setItem ("data", JSON.stringify(dataS));
+        c.PlayAudio();
+      }
     }
-  }
   }
   else if(event.target.closest('.card')&&!event.target.closest('.card').classList.contains('translate')&&document.querySelector('.button_start').classList.contains('repeat')&&event.target.closest('.card').classList.contains('play')){
     let elem=event.target.closest('.card').id;
     let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
-    //проверка на совпадение
-    console.log();
+    let m=localStorage.getItem("randAudio");
+    n.Check(elem,m);
   }
   
   else if(event.target.closest('.card-categories')){
@@ -100,6 +106,7 @@ HEADER.addEventListener('click',(event)=>{
   if(!event.target.classList.contains('header__burger')&&!event.target.closest('.header__burger')&&!event.target.closest('.sidebar'))
   close();
 })
+
 window.onload = function() {
   createPage('Categories');
 }

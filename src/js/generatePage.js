@@ -7,10 +7,6 @@ const createPage = (choice) => {
     const renderCard = () => {
       let content = getContainer();
       if(choice=='Statistics'){
-        let div=document.createElement('div');
-        div.className='sort';
-        div.innerHTML=`<button class="button-sort">Sorting</button>`
-        document.querySelector('.content').append(div);
         generateStats(dataS[choice]).forEach(el => {
           content.append(el.generateStat());
         })

@@ -14,17 +14,22 @@ export class Sound{
   AudioChoice(sounds){
     let rand = Math.floor(Math.random() * sounds.length);
     let audio=new Audio(sounds[rand]);
+    localStorage.setItem ("randAudio", sounds[rand]);
     return audio;
   }
   Repeat(audio){
     this.audio=audio;
     audio.play();
   }
-/*   Check(id){
-    if(data[this.categ][id].audio==audio){
-      let audio=new Audio('../src/audio/correct.mp3');
-      audio.play();
+   Check(id,randAudio){
+    for(let i = 0; i < data[this.categ].length; i++) {
+      if(data[this.categ][i].word==id){
+        if(data[this.categ][i].audio==randAudio){
+          let audio=new Audio('../src/audio/correct.mp3');
+          audio.play();
+        }
+      }
     }
-  } */
+  } 
 
 }

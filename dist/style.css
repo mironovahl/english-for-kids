@@ -540,7 +540,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  padding: 90px 40px; }
+  padding: 90px 40px 40px; }
 
 .card, .card-categories {
   position: relative;
