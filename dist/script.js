@@ -113,7 +113,7 @@ var CONTENT = document.querySelector('.content');
 var SWITCH = document.querySelector('.header__switcher');
 var HEADER = document.querySelector('header'); //localStorage.setItem("data", JSON.stringify(data));
 
-var count = 0;
+var count = 1;
 var dataS = JSON.parse(localStorage.getItem("data"));
 
 if (dataS == null) {
@@ -200,14 +200,11 @@ CONTENT.onclick = function () {
     var _elem = event.target.closest('.card').id;
     var n = new _js_audio__WEBPACK_IMPORTED_MODULE_4__["Sound"](document.querySelector('.header__text_categories').innerHTML);
     var soundList = JSON.parse(localStorage.getItem("soundList"));
-    console.log(soundList);
     var m = localStorage.getItem("randAudio");
-    n.Check(_elem, m);
 
     if (n.Check(_elem, m)) {
       var k = n.AudioChoice(soundList, count);
       count++;
-      console.log(count);
       n.Repeat(k);
     }
   } else if (event.target.closest('.card-categories')) {
@@ -261,9 +258,6 @@ var Sound = /*#__PURE__*/function () {
         sounds[i] = _data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].audio;
       }
 
-      localStorage.setItem("soundList", JSON.stringify(sounds.sort(function () {
-        return Math.random() - 0.5;
-      })));
       return sounds.sort(function () {
         return Math.random() - 0.5;
       });
@@ -288,8 +282,9 @@ var Sound = /*#__PURE__*/function () {
         if (_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].word == id) {
           if (_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].audio == randAudio) {
             var audio = new Audio('../src/audio/correct.mp3');
-            dataS[this.categ][i].win += 1;
-            localStorage.setItem("data", JSON.stringify(dataS));
+            console.log(_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].win);
+            _data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].win += 1;
+            localStorage.setItem("data", JSON.stringify(_data__WEBPACK_IMPORTED_MODULE_0__["default"]));
             audio.play();
             return true;
           } else {
@@ -299,8 +294,8 @@ var Sound = /*#__PURE__*/function () {
 
             for (var _i = 0; _i < _data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ].length; _i++) {
               if (_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][_i].audio == randAudio) {
-                dataS[this.categ][_i].fail += 1;
-                localStorage.setItem("data", JSON.stringify(dataS));
+                _data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][_i].fail += 1;
+                localStorage.setItem("data", JSON.stringify(_data__WEBPACK_IMPORTED_MODULE_0__["default"]));
               }
             }
 
@@ -1194,6 +1189,8 @@ var Play = function Play() {
       document.querySelector('.content').append(div);
       var n = new _audio__WEBPACK_IMPORTED_MODULE_0__["Sound"](document.querySelector('.header__text_categories').innerHTML);
       var soundList = n.AudioGenerate();
+      localStorage.setItem("soundList", JSON.stringify(soundList)); // let soundList=JSON.parse(localStorage.getItem("soundList"));
+
       var choice = n.AudioChoice(soundList, 0); //PlayChoice(choice);
 
       document.querySelector('.button_start').onclick = function () {
@@ -1222,13 +1219,8 @@ var Play = function Play() {
     });
   }
 };
-/* const PlayChoice=()=>{
-  let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
-  let soundList =n.AudioGenerate();
-  let choice=n.AudioChoice(soundList);
-  return elem;
-} */
 
+var Result = function Result(res) {};
 
 
 

@@ -10,7 +10,6 @@ export class Sound{
     for(let i=0;i<data[this.categ].length;i++){
       sounds[i]=data[this.categ][i].audio;
     }
-    localStorage.setItem("soundList", JSON.stringify(sounds.sort(()=>Math.random()-0.5)))
     return sounds.sort(()=>Math.random()-0.5)
   }
   AudioChoice(sounds,i){
@@ -27,8 +26,9 @@ export class Sound{
       if(data[this.categ][i].word==id){
         if(data[this.categ][i].audio==randAudio){
           let audio=new Audio('../src/audio/correct.mp3');
-          dataS[this.categ][i].win+=1;
-          localStorage.setItem ("data", JSON.stringify(dataS));
+          console.log(data[this.categ][i].win);
+          data[this.categ][i].win+=1;
+          localStorage.setItem ("data", JSON.stringify(data));
           audio.play();
           return true
         }
@@ -37,8 +37,8 @@ export class Sound{
           audio.play();
           for(let i = 0; i < data[this.categ].length; i++) {
             if(data[this.categ][i].audio==randAudio){
-              dataS[this.categ][i].fail+=1;
-              localStorage.setItem ("data", JSON.stringify(dataS));
+              data[this.categ][i].fail+=1;
+              localStorage.setItem ("data", JSON.stringify(data));
             }
           }
           return false;

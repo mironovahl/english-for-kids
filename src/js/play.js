@@ -10,6 +10,8 @@ const Play=()=>{
       document.querySelector('.content').append(div);
       let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
       let soundList =n.AudioGenerate();
+      localStorage.setItem("soundList", JSON.stringify(soundList))
+     // let soundList=JSON.parse(localStorage.getItem("soundList"));
       let choice=n.AudioChoice(soundList,0);
       //PlayChoice(choice);
       document.querySelector('.button_start').onclick=function(){
@@ -32,10 +34,9 @@ const Play=()=>{
     document.querySelectorAll('.button').forEach(el=>el.classList.remove('game'));
   }
 }
-/* const PlayChoice=()=>{
-  let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
-  let soundList =n.AudioGenerate();
-  let choice=n.AudioChoice(soundList);
-  return elem;
-} */
+
+const Result=(res)=>{
+
+}
+
 export {Play}

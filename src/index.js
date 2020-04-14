@@ -11,7 +11,7 @@ const CONTENT=document.querySelector('.content');
 const SWITCH=document.querySelector('.header__switcher');
 const HEADER=document.querySelector('header');
 //localStorage.setItem("data", JSON.stringify(data));
-let count=0 ;
+let count=1;
 let dataS = JSON.parse(localStorage.getItem("data"));
 if(dataS==null){
   localStorage.setItem("data", JSON.stringify(data));
@@ -93,13 +93,10 @@ CONTENT.onclick=function(){
     let elem=event.target.closest('.card').id;
     let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
     let soundList=JSON.parse(localStorage.getItem("soundList"));
-    console.log(soundList)
     let m=localStorage.getItem("randAudio");
-    n.Check(elem,m);
     if(n.Check(elem,m)){
       let k=n.AudioChoice(soundList,count);
       count++;
-      console.log(count);
       n.Repeat(k);
     }
   }
