@@ -111,8 +111,8 @@ var BURGER = document.querySelector('.header__burger');
 var MENU = document.querySelector('.sidebar');
 var CONTENT = document.querySelector('.content');
 var SWITCH = document.querySelector('.header__switcher');
-var HEADER = document.querySelector('header');
-localStorage.setItem("data", JSON.stringify(_js_data__WEBPACK_IMPORTED_MODULE_0__["default"]));
+var HEADER = document.querySelector('header'); //localStorage.setItem("data", JSON.stringify(data));
+
 var dataS = JSON.parse(localStorage.getItem("data"));
 BURGER.addEventListener('click', function (event) {
   if (document.querySelector('.sidebar').classList.contains('show')) {
