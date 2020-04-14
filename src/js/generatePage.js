@@ -54,9 +54,7 @@ const createPage = (choice) => {
         }
       }
       if(document.querySelector('.header__text_categories').classList.contains('yes')){
-        console.log(1234567);
         cardList = Sort(cardList);
-    
       }
 
       return cardList;

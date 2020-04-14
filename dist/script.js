@@ -234,6 +234,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
+var dataS = JSON.parse(localStorage.getItem("data"));
 var Sound = /*#__PURE__*/function () {
   function Sound(categ) {
     _classCallCheck(this, Sound);
@@ -273,7 +274,20 @@ var Sound = /*#__PURE__*/function () {
         if (_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].word == id) {
           if (_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].audio == randAudio) {
             var audio = new Audio('../src/audio/correct.mp3');
+            dataS[this.categ][i].win += 1;
+            localStorage.setItem("data", JSON.stringify(dataS));
             audio.play();
+          } else {
+            var _audio = new Audio('../src/audio/error.mp3');
+
+            _audio.play();
+
+            for (var _i = 0; _i < _data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ].length; _i++) {
+              if (_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][_i].audio == randAudio) {
+                dataS[this.categ][_i].fail += 1;
+                localStorage.setItem("data", JSON.stringify(dataS));
+              }
+            }
           }
         }
       }
@@ -1111,7 +1125,6 @@ var createPage = function createPage(choice) {
     }
 
     if (document.querySelector('.header__text_categories').classList.contains('yes')) {
-      console.log(1234567);
       cardList = Sort(cardList);
     }
 
@@ -1236,7 +1249,12 @@ var Statistic = /*#__PURE__*/function () {
     this.click = click;
     this.win = win;
     this.fail = fail;
-    this.proc = proc;
+
+    if (this.fail != 0) {
+      this.proc = (this.win / this.fail).toFixed(3);
+    } else {
+      this.proc = proc;
+    }
   }
 
   _createClass(Statistic, [{
@@ -1255,7 +1273,7 @@ var Statistic = /*#__PURE__*/function () {
       template += "<p class=\"click\">\u041A\u043B\u0438\u043A\u0438: ".concat(this.click, " \u0440\u0430\u0437</p>");
       template += "<p class=\"win\">\u0423\u0433\u0430\u0434\u0430\u043D\u043E: ".concat(this.win, " \u0440\u0430\u0437</p>");
       template += "<p class=\"fail\">\u041D\u0435 \u0443\u0433\u0430\u0434\u0430\u043D\u043E: ".concat(this.fail, " \u0440\u0430\u0437</p>");
-      template += "<p class=\"proc\">% \u043E\u0448\u0438\u0431\u043E\u043A: ".concat(this.proc, "</p>");
+      template += "<p class=\"proc\">% \u043E\u0448\u0438\u0431\u043E\u043A: ".concat(this.proc, " %</p>");
       template += "</div>";
       div.innerHTML = template;
       return div;

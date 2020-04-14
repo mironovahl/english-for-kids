@@ -7,7 +7,13 @@ export class Statistic{
     this.click=click;
     this.win=win;
     this.fail=fail;
-    this.proc=proc;
+    if(this.fail!=0){
+      this.proc= (this.win/this.fail).toFixed(3);
+    }
+    else{
+      this.proc=proc;
+    }
+    
   }
   generateStat(){
     let template='';
@@ -23,7 +29,7 @@ export class Statistic{
     template += `<p class="click">Клики: ${this.click} раз</p>`;
     template += `<p class="win">Угадано: ${this.win} раз</p>`;
     template += `<p class="fail">Не угадано: ${this.fail} раз</p>`;
-    template += `<p class="proc">% ошибок: ${this.proc}</p>`;
+    template += `<p class="proc">% ошибок: ${this.proc} %</p>`;
     template += `</div>`;
     div.innerHTML=template;
     return div;
