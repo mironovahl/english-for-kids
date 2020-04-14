@@ -2,6 +2,7 @@ import data from './data';
 import {Card} from './generate';
 import {Statistic} from './statistic';
 const createPage = (choice) => {
+  let dataS = JSON.parse(localStorage.getItem("data"));
   document.querySelector('.header__text_categories').innerHTML=choice;
     const renderCard = () => {
       let content = getContainer();
@@ -10,13 +11,13 @@ const createPage = (choice) => {
         div.className='sort';
         div.innerHTML=`<button class="button-sort">Sorting</button>`
         document.querySelector('.content').append(div);
-        generateStats(data[choice]).forEach(el => {
+        generateStats(dataS[choice]).forEach(el => {
           content.append(el.generateStat());
         })
         document.querySelectorAll('.card').forEach(el=>el.classList.add('stat'));
       }
       else{
-        generateCards(data[choice]).forEach(el => {
+        generateCards(dataS[choice]).forEach(el => {
           content.append(el.generateCard())
         })
       }
@@ -45,7 +46,7 @@ const createPage = (choice) => {
     const generateStats = (d) => {
       let cards = [];
       d.forEach(el => {
-          cards.push(generateCardStat(data[el.word]))
+          cards.push(generateCardStat(dataS[el.word]))
       });
 
       let cardList=[];
@@ -73,7 +74,7 @@ const createPage = (choice) => {
     return d;
     }
 
-    if(data) {
+    if(dataS) {
       renderCard();
     }
 }

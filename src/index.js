@@ -4,12 +4,15 @@ import {createPage} from './js/generatePage';
 import {Play} from './js/play';
 import {Sound} from './js/audio';
 import {close} from './js/close';
+
 const BURGER=document.querySelector('.header__burger');
 const MENU=document.querySelector('.sidebar');
 const CONTENT=document.querySelector('.content');
 const SWITCH=document.querySelector('.header__switcher');
 const HEADER=document.querySelector('header');
+//localStorage.setItem("data", JSON.stringify(data));
 
+let dataS = JSON.parse(localStorage.getItem("data"));
 BURGER.addEventListener('click',(event)=>{
   if(document.querySelector('.sidebar').classList.contains('show')){
     document.querySelector('.sidebar').classList.remove('show');
@@ -52,7 +55,6 @@ MENU.addEventListener('click',(event)=>{
 
 CONTENT.onclick=function(){
   close();
-  console.log(event.target);
   if(event.target.classList.contains('button-sort')){
     document.querySelector('.header__text_categories').classList.add('yes');
     createPage(document.querySelector('.header__text_categories').innerHTML)
@@ -69,10 +71,11 @@ CONTENT.onclick=function(){
    let ListCard=document.querySelector('.content').childNodes;
    for(let i = 0; i < ListCard.length; i++) {
     if(ListCard[i]==elem){
-      let c =new Card(data[choice][i])
-      data[choice][i].click+=1;
+      let c =new Card(dataS[choice][i])
+      dataS[choice][i].click+=1;
+
+      localStorage.setItem ("data", JSON.stringify(dataS));
       c.PlayAudio();
-      console.log(data[choice][i].click)
     }
   }
   }

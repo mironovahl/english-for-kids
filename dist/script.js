@@ -111,7 +111,9 @@ var BURGER = document.querySelector('.header__burger');
 var MENU = document.querySelector('.sidebar');
 var CONTENT = document.querySelector('.content');
 var SWITCH = document.querySelector('.header__switcher');
-var HEADER = document.querySelector('header');
+var HEADER = document.querySelector('header'); //localStorage.setItem("data", JSON.stringify(data));
+
+var dataS = JSON.parse(localStorage.getItem("data"));
 BURGER.addEventListener('click', function (event) {
   if (document.querySelector('.sidebar').classList.contains('show')) {
     document.querySelector('.sidebar').classList.remove('show');
@@ -154,7 +156,6 @@ MENU.addEventListener('click', function (event) {
 
 CONTENT.onclick = function () {
   Object(_js_close__WEBPACK_IMPORTED_MODULE_5__["close"])();
-  console.log(event.target);
 
   if (event.target.classList.contains('button-sort')) {
     document.querySelector('.header__text_categories').classList.add('yes');
@@ -174,10 +175,10 @@ CONTENT.onclick = function () {
 
     for (var i = 0; i < ListCard.length; i++) {
       if (ListCard[i] == elem) {
-        var c = new _js_generate__WEBPACK_IMPORTED_MODULE_1__["Card"](_js_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice][i]);
-        _js_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice][i].click += 1;
+        var c = new _js_generate__WEBPACK_IMPORTED_MODULE_1__["Card"](dataS[choice][i]);
+        dataS[choice][i].click += 1;
+        localStorage.setItem("data", JSON.stringify(dataS));
         c.PlayAudio();
-        console.log(_js_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice][i].click);
       }
     }
   } else if (event.target.closest('.card') && !event.target.closest('.card').classList.contains('translate') && document.querySelector('.button_start').classList.contains('repeat') && event.target.closest('.card').classList.contains('play')) {
@@ -1032,6 +1033,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var createPage = function createPage(choice) {
+  var dataS = JSON.parse(localStorage.getItem("data"));
   document.querySelector('.header__text_categories').innerHTML = choice;
 
   var renderCard = function renderCard() {
@@ -1042,14 +1044,14 @@ var createPage = function createPage(choice) {
       div.className = 'sort';
       div.innerHTML = "<button class=\"button-sort\">Sorting</button>";
       document.querySelector('.content').append(div);
-      generateStats(_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice]).forEach(function (el) {
+      generateStats(dataS[choice]).forEach(function (el) {
         content.append(el.generateStat());
       });
       document.querySelectorAll('.card').forEach(function (el) {
         return el.classList.add('stat');
       });
     } else {
-      generateCards(_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice]).forEach(function (el) {
+      generateCards(dataS[choice]).forEach(function (el) {
         content.append(el.generateCard());
       });
     }
@@ -1080,7 +1082,7 @@ var createPage = function createPage(choice) {
   var generateStats = function generateStats(d) {
     var cards = [];
     d.forEach(function (el) {
-      cards.push(generateCardStat(_data__WEBPACK_IMPORTED_MODULE_0__["default"][el.word]));
+      cards.push(generateCardStat(dataS[el.word]));
     });
     var cardList = [];
     var k = 0;
@@ -1108,7 +1110,7 @@ var createPage = function createPage(choice) {
     return d;
   };
 
-  if (_data__WEBPACK_IMPORTED_MODULE_0__["default"]) {
+  if (dataS) {
     renderCard();
   }
 };
