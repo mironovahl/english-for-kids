@@ -111,8 +111,8 @@ var BURGER = document.querySelector('.header__burger');
 var MENU = document.querySelector('.sidebar');
 var CONTENT = document.querySelector('.content');
 var SWITCH = document.querySelector('.header__switcher');
-var HEADER = document.querySelector('header'); //localStorage.setItem("data", JSON.stringify(data));
-
+var HEADER = document.querySelector('header');
+localStorage.setItem("data", JSON.stringify(_js_data__WEBPACK_IMPORTED_MODULE_0__["default"]));
 var dataS = JSON.parse(localStorage.getItem("data"));
 BURGER.addEventListener('click', function (event) {
   if (document.querySelector('.sidebar').classList.contains('show')) {
@@ -1044,14 +1044,14 @@ var createPage = function createPage(choice) {
       div.className = 'sort';
       div.innerHTML = "<button class=\"button-sort\">Sorting</button>";
       document.querySelector('.content').append(div);
-      generateStats(dataS[choice]).forEach(function (el) {
+      generateStats(_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice]).forEach(function (el) {
         content.append(el.generateStat());
       });
       document.querySelectorAll('.card').forEach(function (el) {
         return el.classList.add('stat');
       });
     } else {
-      generateCards(dataS[choice]).forEach(function (el) {
+      generateCards(_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice]).forEach(function (el) {
         content.append(el.generateCard());
       });
     }
