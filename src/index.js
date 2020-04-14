@@ -98,4 +98,5 @@ HEADER.addEventListener('click',(event)=>{
 })
 window.onload = function() {
   createPage('Categories');
+  localStorage.setItem("data", JSON.stringify(data));
 }
