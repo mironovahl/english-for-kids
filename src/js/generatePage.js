@@ -11,7 +11,7 @@ const createPage = (choice) => {
         div.className='sort';
         div.innerHTML=`<button class="button-sort">Sorting</button>`
         document.querySelector('.content').append(div);
-        generateStats(data[choice]).forEach(el => {
+        generateStats(dataS[choice]).forEach(el => {
           content.append(el.generateStat());
         })
         document.querySelectorAll('.card').forEach(el=>el.classList.add('stat'));
