@@ -17,7 +17,7 @@ const createPage = (choice) => {
         document.querySelectorAll('.card').forEach(el=>el.classList.add('stat'));
       }
       else{
-        generateCards(dataS[choice]).forEach(el => {
+        generateCards(data[choice]).forEach(el => {
           content.append(el.generateCard())
         })
       }
