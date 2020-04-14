@@ -170,6 +170,7 @@ MENU.addEventListener('click', function (event) {
 });
 
 CONTENT.onclick = function () {
+  console.log(dataS);
   Object(_js_close__WEBPACK_IMPORTED_MODULE_5__["close"])();
 
   if (event.target.classList.contains('button-sort')) {

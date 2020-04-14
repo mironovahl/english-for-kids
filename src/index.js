@@ -65,6 +65,7 @@ MENU.addEventListener('click',(event)=>{
 })
 
 CONTENT.onclick=function(){
+  console.log(dataS);
   close();
   if(event.target.classList.contains('button-sort')){
     document.querySelector('.header__text_categories').classList.add('yes');
