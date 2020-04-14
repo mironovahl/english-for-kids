@@ -1051,6 +1051,7 @@ var createPage = function createPage(choice) {
         return el.classList.add('stat');
       });
     } else {
+      localStorage.setItem("data", JSON.stringify(_data__WEBPACK_IMPORTED_MODULE_0__["default"]));
       generateCards(_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice]).forEach(function (el) {
         content.append(el.generateCard());
       });

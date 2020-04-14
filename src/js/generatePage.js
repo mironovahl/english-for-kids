@@ -17,6 +17,7 @@ const createPage = (choice) => {
         document.querySelectorAll('.card').forEach(el=>el.classList.add('stat'));
       }
       else{
+        localStorage.setItem("data", JSON.stringify(data));
         generateCards(data[choice]).forEach(el => {
           content.append(el.generateCard())
         })
