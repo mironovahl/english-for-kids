@@ -1110,7 +1110,7 @@ var createPage = function createPage(choice) {
     return d;
   };
 
-  if (dataS) {
+  if (_data__WEBPACK_IMPORTED_MODULE_0__["default"] || dataS) {
     renderCard();
   }
 };

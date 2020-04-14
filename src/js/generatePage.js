@@ -74,7 +74,7 @@ const createPage = (choice) => {
     return d;
     }
 
-    if(dataS) {
+    if(data||dataS) {
       renderCard();
     }
 }
