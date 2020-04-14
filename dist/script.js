@@ -1044,7 +1044,7 @@ var createPage = function createPage(choice) {
       div.className = 'sort';
       div.innerHTML = "<button class=\"button-sort\">Sorting</button>";
       document.querySelector('.content').append(div);
-      generateStats(_data__WEBPACK_IMPORTED_MODULE_0__["default"][choice]).forEach(function (el) {
+      generateStats(dataS[choice]).forEach(function (el) {
         content.append(el.generateStat());
       });
       document.querySelectorAll('.card').forEach(function (el) {
