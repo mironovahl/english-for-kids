@@ -30,6 +30,10 @@
     border-radius: 5%;
     overflow: hidden;
   }
+  &.inactive{
+    opacity: 0.6;
+    cursor: no-drop;
+  }
 }
 .card-categories{
   &.play{

@@ -142,7 +142,6 @@ SWITCH.addEventListener('click', function (event) {
 });
 MENU.addEventListener('click', function (event) {
   if (event.target.closest('.menu')) {
-    //localStorage.setItem ("data", JSON.stringify(dataS))
     MENU.querySelectorAll('li').forEach(function (el) {
       return el.classList.remove('active');
     });
@@ -197,7 +196,7 @@ CONTENT.onclick = function () {
         c.PlayAudio();
       }
     }
-  } else if (event.target.closest('.card') && !event.target.closest('.card').classList.contains('translate') && document.querySelector('.button_start').classList.contains('repeat') && event.target.closest('.card').classList.contains('play')) {
+  } else if (event.target.closest('.card') && document.querySelector('.button_start').classList.contains('repeat') && event.target.closest('.card').classList.contains('play')) {
     var _elem = event.target.closest('.card').id;
     var n = new _js_audio__WEBPACK_IMPORTED_MODULE_4__["Sound"](document.querySelector('.header__text_categories').innerHTML);
     var soundList = JSON.parse(localStorage.getItem("soundList"));
@@ -207,6 +206,7 @@ CONTENT.onclick = function () {
       var k = n.AudioChoice(soundList, count);
       count++;
       n.Repeat(k);
+      event.target.closest('.card').classList.add('inactive');
     }
   } else if (event.target.closest('.card-categories')) {
     Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])(event.target.closest('.card-categories').id);
@@ -1217,7 +1217,8 @@ var Play = function Play() {
     }
 
     document.querySelectorAll('.card').forEach(function (el) {
-      return el.classList.remove('play');
+      el.classList.remove('play');
+      el.classList.remove('inactive');
     });
     document.querySelectorAll('.card-categories').forEach(function (el) {
       return el.classList.remove('play');

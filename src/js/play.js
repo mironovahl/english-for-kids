@@ -32,7 +32,10 @@ const Play=()=>{
     if(document.querySelector('.game')){
       document.querySelector('.game').parentNode.removeChild(document.querySelector('.game'))
     }
-    document.querySelectorAll('.card').forEach(el=>el.classList.remove('play'));
+    document.querySelectorAll('.card').forEach(el=>{
+      el.classList.remove('play');
+      el.classList.remove('inactive');
+    });
     document.querySelectorAll('.card-categories').forEach(el=>el.classList.remove('play'));
   }
 }

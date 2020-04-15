@@ -520,13 +520,16 @@ body {
   font-size: 27px;
   line-height: 32px; }
   .button.game {
+    transition: 0.6s ease;
     display: block; }
   .button .button_start {
+    transition: 0.3s ease;
     outline: none;
     border-radius: 10px;
     width: 350px;
     height: 60px; }
     .button .button_start.repeat {
+      transition: 0.3s ease;
       border-radius: 50%;
       width: 60px; }
 
@@ -566,6 +569,10 @@ body {
   box-shadow: 3px 3px 5px #525050;
   border-radius: 5%;
   overflow: hidden; }
+
+.card.inactive {
+  opacity: 0.6;
+  cursor: no-drop; }
 
 .card-categories.play {
   transition: 0.6s ease; }

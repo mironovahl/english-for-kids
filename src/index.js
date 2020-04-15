@@ -43,7 +43,6 @@ SWITCH.addEventListener('click',(event)=>{
 
 MENU.addEventListener('click',(event)=>{
   if(event.target.closest('.menu')){
-//localStorage.setItem ("data", JSON.stringify(dataS))
     MENU.querySelectorAll('li').forEach(el=>el.classList.remove('active'));
     event.target.classList.add('active');
     if(!event.target.classList.contains('menu__categories')){
@@ -90,7 +89,7 @@ CONTENT.onclick=function(){
       }
     }
   }
-  else if(event.target.closest('.card')&&!event.target.closest('.card').classList.contains('translate')&&document.querySelector('.button_start').classList.contains('repeat')&&event.target.closest('.card').classList.contains('play')){
+  else if(event.target.closest('.card')&&document.querySelector('.button_start').classList.contains('repeat')&&event.target.closest('.card').classList.contains('play')){
     let elem=event.target.closest('.card').id;
     let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
     let soundList=JSON.parse(localStorage.getItem("soundList"));
@@ -99,6 +98,7 @@ CONTENT.onclick=function(){
       let k=n.AudioChoice(soundList,count);
       count++;
       n.Repeat(k);
+      event.target.closest('.card').classList.add('inactive');
     }
   }
   else if(event.target.closest('.card-categories')){

@@ -98,14 +98,17 @@
   @extend %font;
   @include font(27px,32px);
   &.game{
+    transition: 0.6s ease;
     display: block;
   }
   .button_start{
+    transition: 0.3s ease;
     outline: none;
     border-radius: 10px;
     width: 350px;
     height: 60px;
     &.repeat{
+      transition: 0.3s ease;
       border-radius: 50%;
       width: 60px;
     }
