@@ -36,13 +36,14 @@ SWITCH.addEventListener('click',(event)=>{
   }
   else{
     document.querySelector('.header__switcher').classList.add('check');
+    count=1;
     Play();
   }
 })
 
 MENU.addEventListener('click',(event)=>{
   if(event.target.closest('.menu')){
-//    localStorage.setItem ("data", JSON.stringify(dataS))
+//localStorage.setItem ("data", JSON.stringify(dataS))
     MENU.querySelectorAll('li').forEach(el=>el.classList.remove('active'));
     event.target.classList.add('active');
     if(!event.target.classList.contains('menu__categories')){

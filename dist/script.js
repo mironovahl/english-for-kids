@@ -136,12 +136,13 @@ SWITCH.addEventListener('click', function (event) {
     Object(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"])();
   } else {
     document.querySelector('.header__switcher').classList.add('check');
+    count = 1;
     Object(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"])();
   }
 });
 MENU.addEventListener('click', function (event) {
   if (event.target.closest('.menu')) {
-    //    localStorage.setItem ("data", JSON.stringify(dataS))
+    //localStorage.setItem ("data", JSON.stringify(dataS))
     MENU.querySelectorAll('li').forEach(function (el) {
       return el.classList.remove('active');
     });
@@ -1172,6 +1173,8 @@ var createPage = function createPage(choice) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Play", function() { return Play; });
 /* harmony import */ var _audio__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./audio */ "./src/js/audio.js");
+/* harmony import */ var _generatePage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./generatePage */ "./src/js/generatePage.js");
+
 
 
 var Play = function Play() {
@@ -1192,7 +1195,7 @@ var Play = function Play() {
       var soundList = n.AudioGenerate();
       localStorage.setItem("soundList", JSON.stringify(soundList)); // let soundList=JSON.parse(localStorage.getItem("soundList"));
 
-      var choice = n.AudioChoice(soundList, 0); //PlayChoice(choice);
+      var choice = n.AudioChoice(soundList, 0);
 
       document.querySelector('.button_start').onclick = function () {
         if (!document.querySelector('.button_start').classList.contains('repeat')) {
@@ -1209,14 +1212,15 @@ var Play = function Play() {
       };
     }
   } else {
+    if (document.querySelector('.game')) {
+      document.querySelector('.game').parentNode.removeChild(document.querySelector('.game'));
+    }
+
     document.querySelectorAll('.card').forEach(function (el) {
       return el.classList.remove('play');
     });
     document.querySelectorAll('.card-categories').forEach(function (el) {
       return el.classList.remove('play');
-    });
-    document.querySelectorAll('.button').forEach(function (el) {
-      return el.classList.remove('game');
     });
   }
 };

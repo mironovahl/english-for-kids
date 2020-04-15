@@ -1,4 +1,5 @@
 import {Sound} from './audio';
+import {createPage} from './generatePage';
 const Play=()=>{
   if(document.querySelector('.header__switcher').classList.contains('check')&&document.querySelector('.header__text_categories').innerHTML!='Statistics'){
     document.querySelectorAll('.card').forEach(el=>el.classList.add('play'));
@@ -13,7 +14,6 @@ const Play=()=>{
       localStorage.setItem("soundList", JSON.stringify(soundList))
      // let soundList=JSON.parse(localStorage.getItem("soundList"));
       let choice=n.AudioChoice(soundList,0);
-      //PlayChoice(choice);
       document.querySelector('.button_start').onclick=function(){
         if(!document.querySelector('.button_start').classList.contains('repeat')){
           document.querySelector('.button_start').classList.add('repeat');
@@ -29,9 +29,11 @@ const Play=()=>{
     }
   }
   else{
+    if(document.querySelector('.game')){
+      document.querySelector('.game').parentNode.removeChild(document.querySelector('.game'))
+    }
     document.querySelectorAll('.card').forEach(el=>el.classList.remove('play'));
     document.querySelectorAll('.card-categories').forEach(el=>el.classList.remove('play'));
-    document.querySelectorAll('.button').forEach(el=>el.classList.remove('game'));
   }
 }
 
