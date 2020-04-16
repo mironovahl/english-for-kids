@@ -159,7 +159,14 @@ MENU.addEventListener('click', function (event) {
         choice = 'Categories';
       }
 
-      if (event.target.innerText == 'Statistics') {}
+      if (event.target.innerText == 'Statistics') {
+        if (!document.querySelector('main').contains(document.querySelector('.button-statistics'))) Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["StatisticButton"])();
+      } else {
+        if (document.querySelector('main').contains(document.querySelector('.button-statistics'))) {
+          var elem = document.querySelector('.button-statistics');
+          elem.parentNode.removeChild(elem);
+        }
+      }
 
       Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])(choice);
       Object(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"])();
@@ -1091,6 +1098,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var sortby;
 
 var createPage = function createPage(choice) {
   document.querySelector('.content').classList.remove('result-win');
@@ -1102,7 +1110,6 @@ var createPage = function createPage(choice) {
     var content = getContainer();
 
     if (choice == 'Statistics') {
-      StatisticButton();
       generateStats(dataS[choice]).forEach(function (el) {
         content.append(el.generateStat());
       });
@@ -1153,17 +1160,18 @@ var createPage = function createPage(choice) {
       }
     }
 
-    if (document.querySelector('.header__text_categories').classList.contains('yes')) {
-      cardList = Sort(cardList);
+    if (sortby) {
+      console.log(987654);
+      console.log(sortby);
+      cardList = Sort(cardList, sortby);
     }
 
     return cardList;
   };
 
-  var Sort = function Sort(d) {
+  var Sort = function Sort(d, sortby) {
     d.sort(function (prev, next) {
-      if (prev.word < next.word) return -1;
-      if (prev.word < next.word) return 1;
+      if (prev[sortby] < next[sortby]) return -1;
     });
     return d;
   };
@@ -1177,13 +1185,18 @@ var StatisticButton = function StatisticButton() {
   var div = document.createElement('div');
   div.className = 'button-statistics';
   var template = "<div class=\"sort\">";
-  template += "<button class=\"button-sort\">Sorting</button>";
+  template += "<button id=\"word\" class=\"button-sort\">Sorting</button>";
   template += "</div>";
   template += "<div class=\"restart\">";
   template += "<button class=\"button-restart\">Restart</button>";
   template += "</div>";
   div.innerHTML += template;
-  document.querySelector('main').append(div);
+  document.querySelector('main').prepend(div);
+
+  document.querySelector('.button-statistics').onclick = function () {
+    sortby = 'word';
+    createPage('Statistics');
+  };
 };
 
 
@@ -1214,11 +1227,11 @@ var Play = function Play() {
       return el.classList.add('play');
     });
     var div = document.createElement('div');
-    var divK = document.createElement('div');
-    divK.className = 'star';
-    document.querySelector('.content').prepend(divK);
 
     if (document.querySelector('.content').children[1].classList.contains('card')) {
+      var divK = document.createElement('div');
+      divK.className = 'star';
+      document.querySelector('.content').prepend(divK);
       div.className = 'button game';
       div.innerHTML = "<button class=\"button_start\">Start game</button>";
       document.querySelector('.content').append(div);
@@ -1242,8 +1255,9 @@ var Play = function Play() {
       };
     }
   } else {
-    if (document.querySelector('.game')) {
+    if (document.querySelector('.game') && document.querySelector('.star')) {
       document.querySelector('.game').parentNode.removeChild(document.querySelector('.game'));
+      document.querySelector('.star').parentNode.removeChild(document.querySelector('.star'));
     }
 
     document.querySelectorAll('.card').forEach(function (el) {
@@ -1271,6 +1285,9 @@ var Play = function Play() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResultPage", function() { return ResultPage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createStar", function() { return createStar; });
+/* harmony import */ var _generatePage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generatePage */ "./src/js/generatePage.js");
+
+
 var ResultPage = function ResultPage(countFail) {
   document.querySelector('.content').innerHTML = '';
   var audio;

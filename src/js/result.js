@@ -1,3 +1,5 @@
+import { createPage } from "./generatePage";
+
 const ResultPage=(countFail)=>{
   document.querySelector('.content').innerHTML='';
   let audio
@@ -15,7 +17,6 @@ const ResultPage=(countFail)=>{
     document.querySelector('.content').append(div);
   }
   audio.play();
-
 }
 const createStar=(res)=>{
   let star;
@@ -27,5 +28,6 @@ const createStar=(res)=>{
   }
   document.querySelector('.star').innerHTML+=star;
 }
+
 
 export {ResultPage,createStar}

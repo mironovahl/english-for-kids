@@ -56,14 +56,20 @@ MENU.addEventListener('click',(event)=>{
         choice='Categories';
       }
       if(event.target.innerText=='Statistics'){
-
+        if(!document.querySelector('main').contains(document.querySelector('.button-statistics')))
+          StatisticButton();
+      }
+      else{
+        if(document.querySelector('main').contains(document.querySelector('.button-statistics'))){
+          let elem = document.querySelector('.button-statistics');
+          elem.parentNode.removeChild(elem);  
+        }
       }
       createPage(choice);
       Play();
     }
   }
 })
-
 CONTENT.onclick=function(){
   close();
   if(event.target.classList.contains('button-sort')){

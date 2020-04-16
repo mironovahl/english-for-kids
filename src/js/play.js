@@ -5,11 +5,11 @@ const Play=()=>{
     document.querySelectorAll('.card').forEach(el=>el.classList.add('play'));
     document.querySelectorAll('.card-categories').forEach(el=>el.classList.add('play'));
     let div=document.createElement('div');
-    let divK=document.createElement('div');
 
-    divK.className='star';
-    document.querySelector('.content').prepend(divK);
     if(document.querySelector('.content').children[1].classList.contains('card')){
+      let divK=document.createElement('div');
+      divK.className='star';
+      document.querySelector('.content').prepend(divK);
       div.className='button game';
       div.innerHTML=`<button class="button_start">Start game</button>`;
       document.querySelector('.content').append(div);
@@ -32,8 +32,10 @@ const Play=()=>{
     }
   }
   else{
-    if(document.querySelector('.game')){
+    if(document.querySelector('.game')&&document.querySelector('.star')){
       document.querySelector('.game').parentNode.removeChild(document.querySelector('.game'))
+      document.querySelector('.star').parentNode.removeChild(document.querySelector('.star'))
+
     }
     document.querySelectorAll('.card').forEach(el=>{
       el.classList.remove('play');

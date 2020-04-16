@@ -13,7 +13,6 @@ export class Statistic{
     else{
       this.proc=proc;
     }
-    
   }
   generateStat(){
     let template='';

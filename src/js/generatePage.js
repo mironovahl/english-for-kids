@@ -1,6 +1,7 @@
 import data from './data';
 import {Card} from './generate';
 import {Statistic} from './statistic';
+let sortby;
 const createPage = (choice) => {
   document.querySelector('.content').classList.remove('result-win');
   document.querySelector('.content').classList.remove('result-lose');
@@ -9,7 +10,6 @@ const createPage = (choice) => {
     const renderCard = () => {
       let content = getContainer();
       if(choice=='Statistics'){
-        StatisticButton();
         generateStats(dataS[choice]).forEach(el => {
           content.append(el.generateStat());
         })
@@ -56,16 +56,18 @@ const createPage = (choice) => {
           cardList[k]=cards[i][j];
         }
       }
-      if(document.querySelector('.header__text_categories').classList.contains('yes')){
-        cardList = Sort(cardList);
+      if(sortby){
+        console.log(987654);
+        console.log(sortby);
+
+        cardList = Sort(cardList,sortby);
       }
       return cardList;
     }
 
-    const Sort = (d) => {
+    const Sort = (d,sortby) => {
       d.sort((prev, next) => {
-        if ( prev.word < next.word ) return -1;
-        if ( prev.word < next.word ) return 1;
+        if ( prev[sortby] < next[sortby]) return -1;
     });
     return d;
     }
@@ -77,16 +79,20 @@ const createPage = (choice) => {
 
 const StatisticButton = () => {
   let div=document.createElement('div');
-
   div.className='button-statistics';
   let template= `<div class="sort">`;
-  template+=`<button class="button-sort">Sorting</button>`;
+  template+=`<button id="word" class="button-sort">Sorting</button>`;
   template+=`</div>`;
   template+= `<div class="restart">`;
   template+=`<button class="button-restart">Restart</button>`;
   template+=`</div>`;
   div.innerHTML+=template;
-  document.querySelector('main').append(div);
+  document.querySelector('main').prepend(div);
+  document.querySelector('.button-statistics').onclick=function(){
+    sortby='word';
+    createPage('Statistics');
+
+  }
 }
 
 
