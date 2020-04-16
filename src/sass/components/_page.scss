@@ -7,3 +7,21 @@
   justify-content: space-around;
   padding: 90px 40px 40px;
 }
+.result-win{
+  background: url('../img/win.jpg');
+  z-index: 2;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: center;
+  height: 100vh;
+}
+.result-lose{
+  background: url('../img/lose.jpg');
+  z-index: 2;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: center;
+  height: 100vh;
+}

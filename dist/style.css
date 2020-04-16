@@ -533,7 +533,7 @@ body {
       border-radius: 50%;
       width: 60px; }
 
-.sort {
+.sort, .restart {
   width: 100%; }
 
 .content {
@@ -544,6 +544,24 @@ body {
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 90px 40px 40px; }
+
+.result-win {
+  background: url(dd613f05ce17855bb55670783a793d48.jpg);
+  z-index: 2;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: center;
+  height: 100vh; }
+
+.result-lose {
+  background: url(0be0379de2c2bb75f72d4217bc377a6d.jpg);
+  z-index: 2;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: center;
+  height: 100vh; }
 
 .card, .card-categories {
   position: relative;

@@ -1,9 +1,10 @@
 import data from './js/data';
 import {Card} from './js/generate';
-import {createPage} from './js/generatePage';
+import {createPage,StatisticButton} from './js/generatePage';
 import {Play} from './js/play';
 import {Sound} from './js/audio';
 import {close} from './js/close';
+import {ResultPage} from './js/result';
 
 const BURGER=document.querySelector('.header__burger');
 const MENU=document.querySelector('.sidebar');
@@ -12,6 +13,7 @@ const SWITCH=document.querySelector('.header__switcher');
 const HEADER=document.querySelector('header');
 //localStorage.setItem("data", JSON.stringify(data));
 let count=1;
+let countFail=0;
 let dataS = JSON.parse(localStorage.getItem("data"));
 if(dataS==null){
   localStorage.setItem("data", JSON.stringify(data));
@@ -37,6 +39,7 @@ SWITCH.addEventListener('click',(event)=>{
   else{
     document.querySelector('.header__switcher').classList.add('check');
     count=1;
+    countFail=0;
     Play();
   }
 })
@@ -53,10 +56,7 @@ MENU.addEventListener('click',(event)=>{
         choice='Categories';
       }
       if(event.target.innerText=='Statistics'){
-        let div=document.createElement('div');
-        div.className='sort';
-        div.innerHTML=`<button class="button-sort">Sorting</button>`
-        document.querySelector('main').prepend(div);
+
       }
       createPage(choice);
       Play();
@@ -70,7 +70,11 @@ CONTENT.onclick=function(){
     document.querySelector('.header__text_categories').classList.add('yes');
     createPage(document.querySelector('.header__text_categories').innerHTML)
   }
-  if(event.target.classList.contains('rotate')){
+  else if(event.target.classList.contains('button-restart')){
+    document.querySelector('.header__text_categories').classList.add('yes');
+    createPage(document.querySelector('.header__text_categories').innerHTML)
+  }
+  else if(event.target.classList.contains('rotate')){
     event.target.closest('.card').classList.add('translate');
     event.target.closest('.card').onmouseleave=()=>{
       event.target.closest('.card').classList.remove('translate');
@@ -97,8 +101,15 @@ CONTENT.onclick=function(){
     if(n.Check(elem,m)){
       let k=n.AudioChoice(soundList,count);
       count++;
-      n.Repeat(k);
+      setTimeout(n.Repeat, 1000,k);
       event.target.closest('.card').classList.add('inactive');
+    }
+    else{
+      countFail++;
+    }
+    if(count==9){
+      ResultPage(countFail);
+      setTimeout(createPage, 2000,'Categories');
     }
   }
   else if(event.target.closest('.card-categories')){

@@ -101,6 +101,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_play__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/play */ "./src/js/play.js");
 /* harmony import */ var _js_audio__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/audio */ "./src/js/audio.js");
 /* harmony import */ var _js_close__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/close */ "./src/js/close.js");
+/* harmony import */ var _js_result__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./js/result */ "./src/js/result.js");
+
 
 
 
@@ -114,6 +116,7 @@ var SWITCH = document.querySelector('.header__switcher');
 var HEADER = document.querySelector('header'); //localStorage.setItem("data", JSON.stringify(data));
 
 var count = 1;
+var countFail = 0;
 var dataS = JSON.parse(localStorage.getItem("data"));
 
 if (dataS == null) {
@@ -137,6 +140,7 @@ SWITCH.addEventListener('click', function (event) {
   } else {
     document.querySelector('.header__switcher').classList.add('check');
     count = 1;
+    countFail = 0;
     Object(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"])();
   }
 });
@@ -156,12 +160,7 @@ MENU.addEventListener('click', function (event) {
         choice = 'Categories';
       }
 
-      if (event.target.innerText == 'Statistics') {
-        var div = document.createElement('div');
-        div.className = 'sort';
-        div.innerHTML = "<button class=\"button-sort\">Sorting</button>";
-        document.querySelector('main').prepend(div);
-      }
+      if (event.target.innerText == 'Statistics') {}
 
       Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])(choice);
       Object(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"])();
@@ -175,9 +174,10 @@ CONTENT.onclick = function () {
   if (event.target.classList.contains('button-sort')) {
     document.querySelector('.header__text_categories').classList.add('yes');
     Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])(document.querySelector('.header__text_categories').innerHTML);
-  }
-
-  if (event.target.classList.contains('rotate')) {
+  } else if (event.target.classList.contains('button-restart')) {
+    document.querySelector('.header__text_categories').classList.add('yes');
+    Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])(document.querySelector('.header__text_categories').innerHTML);
+  } else if (event.target.classList.contains('rotate')) {
     event.target.closest('.card').classList.add('translate');
 
     event.target.closest('.card').onmouseleave = function () {
@@ -205,8 +205,15 @@ CONTENT.onclick = function () {
     if (n.Check(_elem, m)) {
       var k = n.AudioChoice(soundList, count);
       count++;
-      n.Repeat(k);
+      setTimeout(n.Repeat, 1000, k);
       event.target.closest('.card').classList.add('inactive');
+    } else {
+      countFail++;
+    }
+
+    if (count == 9) {
+      Object(_js_result__WEBPACK_IMPORTED_MODULE_6__["ResultPage"])(countFail);
+      setTimeout(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"], 2000, 'Categories');
     }
   } else if (event.target.closest('.card-categories')) {
     Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])(event.target.closest('.card-categories').id);
@@ -1067,12 +1074,13 @@ var Card = /*#__PURE__*/function () {
 /*!********************************!*\
   !*** ./src/js/generatePage.js ***!
   \********************************/
-/*! exports provided: createPage */
+/*! exports provided: createPage, StatisticButton */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPage", function() { return createPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StatisticButton", function() { return StatisticButton; });
 /* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./data */ "./src/js/data.js");
 /* harmony import */ var _generate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./generate */ "./src/js/generate.js");
 /* harmony import */ var _statistic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./statistic */ "./src/js/statistic.js");
@@ -1081,6 +1089,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var createPage = function createPage(choice) {
+  document.querySelector('.content').classList.remove('result-win');
+  document.querySelector('.content').classList.remove('result-lose');
   var dataS = JSON.parse(localStorage.getItem("data"));
   document.querySelector('.header__text_categories').innerHTML = choice;
 
@@ -1088,6 +1098,7 @@ var createPage = function createPage(choice) {
     var content = getContainer();
 
     if (choice == 'Statistics') {
+      StatisticButton();
       generateStats(dataS[choice]).forEach(function (el) {
         content.append(el.generateStat());
       });
@@ -1156,6 +1167,19 @@ var createPage = function createPage(choice) {
   if (dataS) {
     renderCard();
   }
+};
+
+var StatisticButton = function StatisticButton() {
+  var div = document.createElement('div');
+  div.className = 'button-statistics';
+  var template = "<div class=\"sort\">";
+  template += "<button class=\"button-sort\">Sorting</button>";
+  template += "</div>";
+  template += "<div class=\"restart\">";
+  template += "<button class=\"button-restart\">Restart</button>";
+  template += "</div>";
+  div.innerHTML += template;
+  document.querySelector('main').append(div);
 };
 
 
@@ -1227,6 +1251,31 @@ var Play = function Play() {
 };
 
 var Result = function Result(res) {};
+
+
+
+/***/ }),
+
+/***/ "./src/js/result.js":
+/*!**************************!*\
+  !*** ./src/js/result.js ***!
+  \**************************/
+/*! exports provided: ResultPage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResultPage", function() { return ResultPage; });
+var ResultPage = function ResultPage(countFail) {
+  document.querySelector('.content').innerHTML = '';
+  if (countFail == 0) document.querySelector('.content').classList.add('result-win');else {
+    document.querySelector('.content').classList.add('result-lose');
+    var div = document.createElement(div);
+    div.className = 'resilt-text';
+    div.innerHTML = "<p class=\"error\">\u0421\u0434\u0435\u043B\u0430\u043D\u043E \u043E\u0448\u0438\u0431\u043E\u043A: ".concat(countFail, " \u0440\u0430\u0437</p>");
+    document.querySelector('.content').append(div);
+  }
+};
 
 
 
