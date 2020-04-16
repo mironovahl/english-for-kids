@@ -4,14 +4,14 @@ import {createPage,StatisticButton} from './js/generatePage';
 import {Play} from './js/play';
 import {Sound} from './js/audio';
 import {close} from './js/close';
-import {ResultPage} from './js/result';
+import {ResultPage,createStar} from './js/result';
 
 const BURGER=document.querySelector('.header__burger');
 const MENU=document.querySelector('.sidebar');
 const CONTENT=document.querySelector('.content');
 const SWITCH=document.querySelector('.header__switcher');
 const HEADER=document.querySelector('header');
-//localStorage.setItem("data", JSON.stringify(data));
+
 let count=1;
 let countFail=0;
 let dataS = JSON.parse(localStorage.getItem("data"));
@@ -93,7 +93,7 @@ CONTENT.onclick=function(){
       }
     }
   }
-  else if(event.target.closest('.card')&&document.querySelector('.button_start').classList.contains('repeat')&&event.target.closest('.card').classList.contains('play')){
+  else if(event.target.closest('.card')&&document.querySelector('.button_start').classList.contains('repeat')&&event.target.closest('.card').classList.contains('play')&&!event.target.closest('.card').classList.contains('inactive')){
     let elem=event.target.closest('.card').id;
     let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
     let soundList=JSON.parse(localStorage.getItem("soundList"));
@@ -103,13 +103,18 @@ CONTENT.onclick=function(){
       count++;
       setTimeout(n.Repeat, 1000,k);
       event.target.closest('.card').classList.add('inactive');
+      createStar(true);
     }
     else{
       countFail++;
+      createStar(false);
     }
     if(count==9){
       ResultPage(countFail);
-      setTimeout(createPage, 2000,'Categories');
+      count=1;
+      countFail=0;
+      setTimeout(createPage, 3000,'Categories');
+      setTimeout(Play, 3000);
     }
   }
   else if(event.target.closest('.card-categories')){

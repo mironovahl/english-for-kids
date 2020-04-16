@@ -7,17 +7,19 @@
   justify-content: space-around;
   padding: 90px 40px 40px;
 }
-.result-win{
-  background: url('../img/win.jpg');
-  z-index: 2;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position-x: center;
-  background-position-y: center;
-  height: 100vh;
-}
 .result-lose{
   background: url('../img/lose.jpg');
+  .result-text{
+    text-align: center;
+    .error{
+      margin: 0px;
+    }
+  }
+}
+.result-win{
+  background: url('../img/win.jpg');
+}
+.result-win,.result-lose{
   z-index: 2;
   background-repeat: no-repeat;
   background-size: cover;
@@ -25,3 +27,4 @@
   background-position-y: center;
   height: 100vh;
 }
+

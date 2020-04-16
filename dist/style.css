@@ -545,17 +545,17 @@ body {
   justify-content: space-around;
   padding: 90px 40px 40px; }
 
-.result-win {
-  background: url(dd613f05ce17855bb55670783a793d48.jpg);
-  z-index: 2;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position-x: center;
-  background-position-y: center;
-  height: 100vh; }
-
 .result-lose {
-  background: url(0be0379de2c2bb75f72d4217bc377a6d.jpg);
+  background: url(e9de6a62a86ff131af6f5886fed182a6.jpg); }
+  .result-lose .result-text {
+    text-align: center; }
+    .result-lose .result-text .error {
+      margin: 0px; }
+
+.result-win {
+  background: url(dd613f05ce17855bb55670783a793d48.jpg); }
+
+.result-win, .result-lose {
   z-index: 2;
   background-repeat: no-repeat;
   background-size: cover;
@@ -651,6 +651,14 @@ body {
       line-height: 35px; }
     .card-stat .card-stat__text p {
       margin: 3px; }
+
+.star {
+  padding-top: 5px;
+  height: 42px;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end; }
 
 
 /*# sourceMappingURL=style.css.map*/

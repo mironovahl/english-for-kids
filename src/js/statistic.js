@@ -8,7 +8,7 @@ export class Statistic{
     this.win=win;
     this.fail=fail;
     if(this.fail!=0){
-      this.proc= ((this.win/this.fail)*100).toFixed(1);
+      this.proc= ((this.fail/(this.win+this.fail))*100).toFixed(1);
     }
     else{
       this.proc=proc;

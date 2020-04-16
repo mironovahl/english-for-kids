@@ -113,8 +113,7 @@ var BURGER = document.querySelector('.header__burger');
 var MENU = document.querySelector('.sidebar');
 var CONTENT = document.querySelector('.content');
 var SWITCH = document.querySelector('.header__switcher');
-var HEADER = document.querySelector('header'); //localStorage.setItem("data", JSON.stringify(data));
-
+var HEADER = document.querySelector('header');
 var count = 1;
 var countFail = 0;
 var dataS = JSON.parse(localStorage.getItem("data"));
@@ -196,7 +195,7 @@ CONTENT.onclick = function () {
         c.PlayAudio();
       }
     }
-  } else if (event.target.closest('.card') && document.querySelector('.button_start').classList.contains('repeat') && event.target.closest('.card').classList.contains('play')) {
+  } else if (event.target.closest('.card') && document.querySelector('.button_start').classList.contains('repeat') && event.target.closest('.card').classList.contains('play') && !event.target.closest('.card').classList.contains('inactive')) {
     var _elem = event.target.closest('.card').id;
     var n = new _js_audio__WEBPACK_IMPORTED_MODULE_4__["Sound"](document.querySelector('.header__text_categories').innerHTML);
     var soundList = JSON.parse(localStorage.getItem("soundList"));
@@ -207,13 +206,18 @@ CONTENT.onclick = function () {
       count++;
       setTimeout(n.Repeat, 1000, k);
       event.target.closest('.card').classList.add('inactive');
+      Object(_js_result__WEBPACK_IMPORTED_MODULE_6__["createStar"])(true);
     } else {
       countFail++;
+      Object(_js_result__WEBPACK_IMPORTED_MODULE_6__["createStar"])(false);
     }
 
     if (count == 9) {
       Object(_js_result__WEBPACK_IMPORTED_MODULE_6__["ResultPage"])(countFail);
-      setTimeout(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"], 2000, 'Categories');
+      count = 1;
+      countFail = 0;
+      setTimeout(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"], 3000, 'Categories');
+      setTimeout(_js_play__WEBPACK_IMPORTED_MODULE_3__["Play"], 3000);
     }
   } else if (event.target.closest('.card-categories')) {
     Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["createPage"])(event.target.closest('.card-categories').id);
@@ -1210,15 +1214,17 @@ var Play = function Play() {
       return el.classList.add('play');
     });
     var div = document.createElement('div');
+    var divK = document.createElement('div');
+    divK.className = 'star';
+    document.querySelector('.content').prepend(divK);
 
-    if (document.querySelector('.content').children[0].classList.contains('card')) {
+    if (document.querySelector('.content').children[1].classList.contains('card')) {
       div.className = 'button game';
       div.innerHTML = "<button class=\"button_start\">Start game</button>";
       document.querySelector('.content').append(div);
       var n = new _audio__WEBPACK_IMPORTED_MODULE_0__["Sound"](document.querySelector('.header__text_categories').innerHTML);
       var soundList = n.AudioGenerate();
-      localStorage.setItem("soundList", JSON.stringify(soundList)); // let soundList=JSON.parse(localStorage.getItem("soundList"));
-
+      localStorage.setItem("soundList", JSON.stringify(soundList));
       var choice = n.AudioChoice(soundList, 0);
 
       document.querySelector('.button_start').onclick = function () {
@@ -1250,8 +1256,6 @@ var Play = function Play() {
   }
 };
 
-var Result = function Result(res) {};
-
 
 
 /***/ }),
@@ -1260,21 +1264,43 @@ var Result = function Result(res) {};
 /*!**************************!*\
   !*** ./src/js/result.js ***!
   \**************************/
-/*! exports provided: ResultPage */
+/*! exports provided: ResultPage, createStar */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResultPage", function() { return ResultPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createStar", function() { return createStar; });
 var ResultPage = function ResultPage(countFail) {
   document.querySelector('.content').innerHTML = '';
-  if (countFail == 0) document.querySelector('.content').classList.add('result-win');else {
+  var audio;
+
+  if (countFail == 0) {
+    audio = new Audio('../src/audio/success.mp3');
+    document.querySelector('.content').classList.add('result-win');
+  } else {
+    audio = new Audio('../src/audio/failure.mp3');
     document.querySelector('.content').classList.add('result-lose');
-    var div = document.createElement(div);
-    div.className = 'resilt-text';
+    var div = document.createElement('div');
+    div.className = 'result-text';
     div.innerHTML = "<p class=\"error\">\u0421\u0434\u0435\u043B\u0430\u043D\u043E \u043E\u0448\u0438\u0431\u043E\u043A: ".concat(countFail, " \u0440\u0430\u0437</p>");
+    div.innerHTML += "<p class=\"error\">\u041D\u0430\u0434\u043E \u043F\u043E\u0442\u0440\u0435\u043D\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F \u0435\u0449\u0451</p>";
     document.querySelector('.content').append(div);
   }
+
+  audio.play();
+};
+
+var createStar = function createStar(res) {
+  var star;
+
+  if (res == true) {
+    star = "<img class=\"image\" src=../src/img/happy-star.png alt=\"happy-star\">";
+  } else {
+    star = "<img class=\"image\" src=../src/img/sad-star.png alt=\"sad-star\">";
+  }
+
+  document.querySelector('.star').innerHTML += star;
 };
 
 
@@ -1319,7 +1345,7 @@ var Statistic = /*#__PURE__*/function () {
     this.fail = fail;
 
     if (this.fail != 0) {
-      this.proc = (this.win / this.fail * 100).toFixed(1);
+      this.proc = (this.fail / (this.win + this.fail) * 100).toFixed(1);
     } else {
       this.proc = proc;
     }

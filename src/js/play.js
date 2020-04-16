@@ -5,14 +5,17 @@ const Play=()=>{
     document.querySelectorAll('.card').forEach(el=>el.classList.add('play'));
     document.querySelectorAll('.card-categories').forEach(el=>el.classList.add('play'));
     let div=document.createElement('div');
-    if(document.querySelector('.content').children[0].classList.contains('card')){
+    let divK=document.createElement('div');
+
+    divK.className='star';
+    document.querySelector('.content').prepend(divK);
+    if(document.querySelector('.content').children[1].classList.contains('card')){
       div.className='button game';
       div.innerHTML=`<button class="button_start">Start game</button>`;
       document.querySelector('.content').append(div);
       let n=new Sound(document.querySelector('.header__text_categories').innerHTML);
       let soundList =n.AudioGenerate();
       localStorage.setItem("soundList", JSON.stringify(soundList))
-     // let soundList=JSON.parse(localStorage.getItem("soundList"));
       let choice=n.AudioChoice(soundList,0);
       document.querySelector('.button_start').onclick=function(){
         if(!document.querySelector('.button_start').classList.contains('repeat')){
@@ -40,8 +43,5 @@ const Play=()=>{
   }
 }
 
-const Result=(res)=>{
-
-}
 
 export {Play}
