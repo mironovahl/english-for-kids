@@ -1176,9 +1176,10 @@ var createPage = function createPage(choice) {
     var diffWord1 = Sort(diffW, 'proc');
 
     for (var i = 0; i < 8; i++) {
-      diffWord[i] = diffWord1[i];
+      if (diffWord1[i] != undefined) diffWord[i] = diffWord1[i];
     }
 
+    console.log(diffWord);
     var cardList = [];
     var k = 0;
 
