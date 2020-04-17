@@ -58,6 +58,7 @@ MENU.addEventListener('click',(event)=>{
       if(event.target.innerText=='Statistics'){
         if(!document.querySelector('main').contains(document.querySelector('.button-statistics')))
           StatisticButton();
+          CONTENT.classList.add('statistic')
       }
       else{
         if(document.querySelector('main').contains(document.querySelector('.button-statistics'))){

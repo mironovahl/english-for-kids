@@ -6,6 +6,9 @@
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 90px 40px 40px;
+  &.statistic{
+    padding-top: 150px;
+  }
 }
 .result-lose{
   background: url('../img/lose.jpg');

@@ -279,7 +279,7 @@ const data={
       proc:0,
     },{
       word:'Soup',
-      translate:'Cуп',
+      translate:'Суп',
       image:'../src/img/food/soup.jpg',
       audio:'../src/audio/food/soup.mp3',
       click:0,

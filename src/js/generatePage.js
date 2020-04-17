@@ -79,19 +79,36 @@ const createPage = (choice) => {
 
 const StatisticButton = () => {
   let div=document.createElement('div');
-  div.className='button-statistics';
-  let template= `<div class="sort">`;
-  template+=`<button id="word" class="button-sort">Sorting</button>`;
-  template+=`</div>`;
-  template+= `<div class="restart">`;
-  template+=`<button class="button-restart">Restart</button>`;
-  template+=`</div>`;
-  div.innerHTML+=template;
+  div.className='statistic-button';
   document.querySelector('main').prepend(div);
-  document.querySelector('.button-statistics').onclick=function(){
-    sortby='word';
-    createPage('Statistics');
-
+  let template='';
+  let ul=document.createElement('ul');
+  ul.className='ul-statistics';
+  template+='Сортировать';
+  template+='<li class="sort-li" id="word">По слову</li>';
+  template+='<li class="sort-li" id="translate">По переводу</li>';
+  template+='<li class="sort-li" id="click">По кликам</li>';
+  template+='<li class="sort-li" id="win">По угадываниям</li>';
+  template+='<li class="sort-li" id="error">По ошибкам</li>';
+  template+='<li class="sort-li" id="proc">По процентам ошибок</li>';
+  ul.innerHTML=template;
+  document.querySelector('.statistic-button').prepend(ul);
+  let button=document.createElement('button');
+  button.className='button-reset';
+  button.innerText='Reset';
+  document.querySelector('.statistic-button').append(button);
+  document.querySelector('.ul-statistics').onclick=function(){
+    if(!document.querySelector('.ul-statistics').classList.contains('active')){
+      document.querySelector('.ul-statistics').classList.add('active');
+    }
+    else{
+      document.querySelector('.ul-statistics').classList.remove('active');
+      console.log(event.target);
+      if(event.target.classList.contains('sort-li')){
+        sortby=event.target.id;
+        createPage('Statistics')
+      }
+    }
   }
 }
 
