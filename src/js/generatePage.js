@@ -55,7 +55,7 @@ const createPage = (choice) => {
         });
         cards.push(generateCardStat(dataS[el.word]))
       });
-      let diffWord1=Sort(diffW,'click');
+      let diffWord1=Sort(diffW,'proc');
       for(let i=0;i<8;i++){
         diffWord[i]=diffWord1[i];
       }

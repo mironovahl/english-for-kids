@@ -1173,7 +1173,7 @@ var createPage = function createPage(choice) {
       });
       cards.push(generateCardStat(dataS[el.word]));
     });
-    var diffWord1 = Sort(diffW, 'click');
+    var diffWord1 = Sort(diffW, 'proc');
 
     for (var i = 0; i < 8; i++) {
       diffWord[i] = diffWord1[i];
