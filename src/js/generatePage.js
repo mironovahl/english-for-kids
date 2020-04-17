@@ -49,7 +49,7 @@ const createPage = (choice) => {
       let diffW=[];
       d.forEach(el => {
         dataS[el.word].forEach(ele=>{
-          if(ele.click!=0){
+          if(ele.proc!=0){
             diffW.push(ele);
             }
         });

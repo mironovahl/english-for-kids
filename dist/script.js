@@ -1167,7 +1167,7 @@ var createPage = function createPage(choice) {
     var diffW = [];
     d.forEach(function (el) {
       dataS[el.word].forEach(function (ele) {
-        if (ele.click != 0) {
+        if (ele.proc != 0) {
           diffW.push(ele);
         }
       });
