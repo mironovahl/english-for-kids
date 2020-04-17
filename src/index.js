@@ -61,8 +61,10 @@ MENU.addEventListener('click',(event)=>{
           CONTENT.classList.add('statistic')
       }
       else{
-        if(document.querySelector('main').contains(document.querySelector('.button-statistics'))){
-          let elem = document.querySelector('.button-statistics');
+        if(document.querySelector('main').contains(document.querySelector('.statistic-button'))){
+          let elem = document.querySelector('.statistic-button');
+          document.querySelector('.content').classList.remove('statistic');
+
           elem.parentNode.removeChild(elem);  
         }
       }
@@ -91,12 +93,26 @@ CONTENT.onclick=function(){
     let elem=event.target.closest('.card');
     let choice =document.querySelector('.header__text_categories').innerHTML;
     let ListCard=document.querySelector('.content').childNodes;
+    console.log(ListCard)
     for(let i = 0; i < ListCard.length; i++) {
       if(ListCard[i]==elem){
-        let c =new Card(dataS[choice][i])
-        dataS[choice][i].click+=1;
-        localStorage.setItem ("data", JSON.stringify(dataS));
-        c.PlayAudio();
+        if(choice=='Statistics'){
+          for (let key in dataS) {
+            dataS[key].forEach(ele=>{
+              if(elem.id==ele.word){
+                let c =new Card(ele)
+                c.PlayAudio();
+              }
+            })
+          }
+        }
+        else{
+          let c =new Card(dataS[choice][i])
+          dataS[choice][i].click+=1;
+          localStorage.setItem ("data", JSON.stringify(dataS));
+          c.PlayAudio();
+        }
+
       }
     }
   }

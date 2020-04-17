@@ -163,8 +163,9 @@ MENU.addEventListener('click', function (event) {
         if (!document.querySelector('main').contains(document.querySelector('.button-statistics'))) Object(_js_generatePage__WEBPACK_IMPORTED_MODULE_2__["StatisticButton"])();
         CONTENT.classList.add('statistic');
       } else {
-        if (document.querySelector('main').contains(document.querySelector('.button-statistics'))) {
-          var elem = document.querySelector('.button-statistics');
+        if (document.querySelector('main').contains(document.querySelector('.statistic-button'))) {
+          var elem = document.querySelector('.statistic-button');
+          document.querySelector('.content').classList.remove('statistic');
           elem.parentNode.removeChild(elem);
         }
       }
@@ -191,25 +192,39 @@ CONTENT.onclick = function () {
       event.target.closest('.card').classList.remove('translate');
     };
   } else if (event.target.closest('.card') && !event.target.closest('.card').classList.contains('translate') && !event.target.closest('.card').classList.contains('play')) {
-    var elem = event.target.closest('.card');
-    var choice = document.querySelector('.header__text_categories').innerHTML;
-    var ListCard = document.querySelector('.content').childNodes;
+    (function () {
+      var elem = event.target.closest('.card');
+      var choice = document.querySelector('.header__text_categories').innerHTML;
+      var ListCard = document.querySelector('.content').childNodes;
+      console.log(ListCard);
 
-    for (var i = 0; i < ListCard.length; i++) {
-      if (ListCard[i] == elem) {
-        var c = new _js_generate__WEBPACK_IMPORTED_MODULE_1__["Card"](dataS[choice][i]);
-        dataS[choice][i].click += 1;
-        localStorage.setItem("data", JSON.stringify(dataS));
-        c.PlayAudio();
+      for (var i = 0; i < ListCard.length; i++) {
+        if (ListCard[i] == elem) {
+          if (choice == 'Statistics') {
+            for (var key in dataS) {
+              dataS[key].forEach(function (ele) {
+                if (elem.id == ele.word) {
+                  var c = new _js_generate__WEBPACK_IMPORTED_MODULE_1__["Card"](ele);
+                  c.PlayAudio();
+                }
+              });
+            }
+          } else {
+            var c = new _js_generate__WEBPACK_IMPORTED_MODULE_1__["Card"](dataS[choice][i]);
+            dataS[choice][i].click += 1;
+            localStorage.setItem("data", JSON.stringify(dataS));
+            c.PlayAudio();
+          }
+        }
       }
-    }
+    })();
   } else if (event.target.closest('.card') && document.querySelector('.button_start').classList.contains('repeat') && event.target.closest('.card').classList.contains('play') && !event.target.closest('.card').classList.contains('inactive')) {
-    var _elem = event.target.closest('.card').id;
+    var elem = event.target.closest('.card').id;
     var n = new _js_audio__WEBPACK_IMPORTED_MODULE_4__["Sound"](document.querySelector('.header__text_categories').innerHTML);
     var soundList = JSON.parse(localStorage.getItem("soundList"));
     var m = localStorage.getItem("randAudio");
 
-    if (n.Check(_elem, m)) {
+    if (n.Check(elem, m)) {
       var k = n.AudioChoice(soundList, count);
       count++;
       setTimeout(n.Repeat, 1000, k);
@@ -1100,6 +1115,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var sortby;
+var diffWord = [];
+
+var getContainer = function getContainer() {
+  var container = document.querySelector('.content');
+  container.innerHTML = '';
+  return container;
+};
+
+var generateCards = function generateCards(d) {
+  var cards = [];
+  d.forEach(function (el) {
+    cards.push(new _generate__WEBPACK_IMPORTED_MODULE_1__["Card"](el));
+  });
+  return cards;
+};
 
 var createPage = function createPage(choice) {
   document.querySelector('.content').classList.remove('result-win');
@@ -1124,20 +1154,6 @@ var createPage = function createPage(choice) {
     }
   };
 
-  var getContainer = function getContainer() {
-    var container = document.querySelector('.content');
-    container.innerHTML = '';
-    return container;
-  };
-
-  var generateCards = function generateCards(d) {
-    var cards = [];
-    d.forEach(function (el) {
-      cards.push(new _generate__WEBPACK_IMPORTED_MODULE_1__["Card"](el));
-    });
-    return cards;
-  };
-
   var generateCardStat = function generateCardStat(d) {
     var cards = [];
     d.forEach(function (el) {
@@ -1148,22 +1164,32 @@ var createPage = function createPage(choice) {
 
   var generateStats = function generateStats(d) {
     var cards = [];
+    var diffW = [];
     d.forEach(function (el) {
+      dataS[el.word].forEach(function (ele) {
+        if (ele.click != 0) {
+          diffW.push(ele);
+        }
+      });
       cards.push(generateCardStat(dataS[el.word]));
     });
+    var diffWord1 = Sort(diffW, 'click');
+
+    for (var i = 0; i < 8; i++) {
+      diffWord[i] = diffWord1[i];
+    }
+
     var cardList = [];
     var k = 0;
 
-    for (var i = 0; i < cards.length; i++) {
-      for (var j = 0; j < cards[i].length; j++) {
+    for (var _i = 0; _i < cards.length; _i++) {
+      for (var j = 0; j < cards[_i].length; j++) {
         k++;
-        cardList[k] = cards[i][j];
+        cardList[k] = cards[_i][j];
       }
     }
 
     if (sortby) {
-      console.log(987654);
-      console.log(sortby);
       cardList = Sort(cardList, sortby);
     }
 
@@ -1172,7 +1198,7 @@ var createPage = function createPage(choice) {
 
   var Sort = function Sort(d, sortby) {
     d.sort(function (prev, next) {
-      if (prev[sortby] < next[sortby]) return -1;
+      if (prev[sortby] > next[sortby]) return -1;
     });
     return d;
   };
@@ -1198,7 +1224,11 @@ var StatisticButton = function StatisticButton() {
   template += '<li class="sort-li" id="proc">По процентам ошибок</li>';
   ul.innerHTML = template;
   document.querySelector('.statistic-button').prepend(ul);
+  var buttondiff = document.createElement('button');
   var button = document.createElement('button');
+  buttondiff.className = 'button-diff';
+  buttondiff.innerText = 'Repeat difficult words';
+  document.querySelector('.statistic-button').append(buttondiff);
   button.className = 'button-reset';
   button.innerText = 'Reset';
   document.querySelector('.statistic-button').append(button);
@@ -1208,7 +1238,6 @@ var StatisticButton = function StatisticButton() {
       document.querySelector('.ul-statistics').classList.add('active');
     } else {
       document.querySelector('.ul-statistics').classList.remove('active');
-      console.log(event.target);
 
       if (event.target.classList.contains('sort-li')) {
         sortby = event.target.id;
@@ -1220,6 +1249,19 @@ var StatisticButton = function StatisticButton() {
   document.querySelector('.button-reset').onclick = function () {
     localStorage.setItem("data", JSON.stringify(_data__WEBPACK_IMPORTED_MODULE_0__["default"]));
     createPage('Statistics');
+  };
+
+  document.querySelector('.button-diff').onclick = function () {
+    var renderCard = function renderCard() {
+      var content = getContainer();
+      generateCards(diffWord).forEach(function (el) {
+        content.append(el.generateCard());
+      });
+    };
+
+    if (diffWord) {
+      renderCard();
+    }
   };
 };
 

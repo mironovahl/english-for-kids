@@ -1,13 +1,14 @@
 .ul-statistics{
   background-color: white;
   border-radius: 5px;
-  margin: 0;
   box-shadow: 3px 3px 2px rgba(34, 60, 80, 0.2);
   cursor: pointer;
   text-align: center;
   vertical-align: middle;
   width: 250px;
   min-height: 40px;
+  margin: 10px;
+
   &.active{
     box-shadow: 3px 3px 2px rgba(34, 60, 80, 0.2) inset;
     li{

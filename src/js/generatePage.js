@@ -2,6 +2,20 @@ import data from './data';
 import {Card} from './generate';
 import {Statistic} from './statistic';
 let sortby;
+let diffWord=[];
+
+const getContainer = () => {
+  const container = document.querySelector('.content');
+  container.innerHTML = '';
+  return container;
+}
+const generateCards = (d) => {
+  let cards = [];
+  d.forEach(el => {
+      cards.push(new Card(el))
+  });
+  return cards;
+}
 const createPage = (choice) => {
   document.querySelector('.content').classList.remove('result-win');
   document.querySelector('.content').classList.remove('result-lose');
@@ -21,18 +35,6 @@ const createPage = (choice) => {
         })
       }
     }
-    const getContainer = () => {
-      const container = document.querySelector('.content');
-      container.innerHTML = '';
-      return container;
-    }
-    const generateCards = (d) => {
-      let cards = [];
-      d.forEach(el => {
-          cards.push(new Card(el))
-      });
-      return cards;
-    }
 
     const generateCardStat = (d) => {
       let cards = [];
@@ -44,10 +46,19 @@ const createPage = (choice) => {
 
     const generateStats = (d) => {
       let cards = [];
+      let diffW=[];
       d.forEach(el => {
-          cards.push(generateCardStat(dataS[el.word]))
+        dataS[el.word].forEach(ele=>{
+          if(ele.click!=0){
+            diffW.push(ele);
+            }
+        });
+        cards.push(generateCardStat(dataS[el.word]))
       });
-
+      let diffWord1=Sort(diffW,'click');
+      for(let i=0;i<8;i++){
+        diffWord[i]=diffWord1[i];
+      }
       let cardList=[];
       let k=0;
       for(let i=0;i<cards.length;i++){
@@ -57,9 +68,6 @@ const createPage = (choice) => {
         }
       }
       if(sortby){
-        console.log(987654);
-        console.log(sortby);
-
         cardList = Sort(cardList,sortby);
       }
       return cardList;
@@ -67,7 +75,7 @@ const createPage = (choice) => {
 
     const Sort = (d,sortby) => {
       d.sort((prev, next) => {
-        if ( prev[sortby] < next[sortby]) return -1;
+        if ( prev[sortby] > next[sortby]) return -1;
     });
     return d;
     }
@@ -93,17 +101,21 @@ const StatisticButton = () => {
   template+='<li class="sort-li" id="proc">По процентам ошибок</li>';
   ul.innerHTML=template;
   document.querySelector('.statistic-button').prepend(ul);
+  let buttondiff=document.createElement('button');
   let button=document.createElement('button');
+  buttondiff.className='button-diff';
+  buttondiff.innerText='Repeat difficult words';
+  document.querySelector('.statistic-button').append(buttondiff);
   button.className='button-reset';
   button.innerText='Reset';
   document.querySelector('.statistic-button').append(button);
+
   document.querySelector('.ul-statistics').onclick=function(){
     if(!document.querySelector('.ul-statistics').classList.contains('active')){
       document.querySelector('.ul-statistics').classList.add('active');
     }
     else{
       document.querySelector('.ul-statistics').classList.remove('active');
-      console.log(event.target);
       if(event.target.classList.contains('sort-li')){
         sortby=event.target.id;
         createPage('Statistics')
@@ -113,6 +125,18 @@ const StatisticButton = () => {
   document.querySelector('.button-reset').onclick=function(){
     localStorage.setItem ("data", JSON.stringify(data));
     createPage('Statistics');
+  }
+  document.querySelector('.button-diff').onclick=function(){
+    const renderCard = () => {
+      let content = getContainer();
+        generateCards(diffWord).forEach(el => {
+          content.append(el.generateCard())
+        })
+    }
+
+    if(diffWord) {
+      renderCard();
+    }
   }
 }
 
