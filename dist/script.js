@@ -1216,6 +1216,11 @@ var StatisticButton = function StatisticButton() {
       }
     }
   };
+
+  document.querySelector('.button-reset').onclick = function () {
+    localStorage.setItem("data", JSON.stringify(_data__WEBPACK_IMPORTED_MODULE_0__["default"]));
+    createPage('Statistics');
+  };
 };
 
 

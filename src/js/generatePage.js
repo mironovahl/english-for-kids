@@ -110,6 +110,10 @@ const StatisticButton = () => {
       }
     }
   }
+  document.querySelector('.button-reset').onclick=function(){
+    localStorage.setItem ("data", JSON.stringify(data));
+    createPage('Statistics');
+  }
 }
 
 
