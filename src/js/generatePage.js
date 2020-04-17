@@ -56,11 +56,11 @@ const createPage = (choice) => {
         cards.push(generateCardStat(dataS[el.word]))
       });
       let diffWord1=Sort(diffW,'proc');
+
       for(let i=0;i<8;i++){
         if(diffWord1[i]!=undefined)
         diffWord[i]=diffWord1[i];
       }
-      console.log(diffWord);
       let cardList=[];
       let k=0;
       for(let i=0;i<cards.length;i++){

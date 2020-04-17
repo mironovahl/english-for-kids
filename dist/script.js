@@ -196,7 +196,6 @@ CONTENT.onclick = function () {
       var elem = event.target.closest('.card');
       var choice = document.querySelector('.header__text_categories').innerHTML;
       var ListCard = document.querySelector('.content').childNodes;
-      console.log(ListCard);
 
       for (var i = 0; i < ListCard.length; i++) {
         if (ListCard[i] == elem) {
@@ -317,7 +316,9 @@ var Sound = /*#__PURE__*/function () {
           if (_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][i].audio == randAudio) {
             var audio = new Audio('../src/audio/correct.mp3');
             var dataS = JSON.parse(localStorage.getItem("data"));
-            dataS[this.categ][i].win += 1;
+            var element = dataS[this.categ][i];
+            element.win += 1;
+            element.proc = (element.fail / (element.win + element.fail) * 100).toFixed(1);
             localStorage.setItem("data", JSON.stringify(dataS));
             audio.play();
             return true;
@@ -330,7 +331,9 @@ var Sound = /*#__PURE__*/function () {
               if (_data__WEBPACK_IMPORTED_MODULE_0__["default"][this.categ][_i].audio == randAudio) {
                 var _dataS = JSON.parse(localStorage.getItem("data"));
 
-                _dataS[this.categ][_i].fail += 1;
+                var _element = _dataS[this.categ][_i];
+                _element.fail += 1;
+                _element.proc = (_element.fail / (_element.win + _element.fail) * 100).toFixed(1);
                 localStorage.setItem("data", JSON.stringify(_dataS));
               }
             }
@@ -1179,7 +1182,6 @@ var createPage = function createPage(choice) {
       if (diffWord1[i] != undefined) diffWord[i] = diffWord1[i];
     }
 
-    console.log(diffWord);
     var cardList = [];
     var k = 0;
 

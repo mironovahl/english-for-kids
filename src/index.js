@@ -93,7 +93,6 @@ CONTENT.onclick=function(){
     let elem=event.target.closest('.card');
     let choice =document.querySelector('.header__text_categories').innerHTML;
     let ListCard=document.querySelector('.content').childNodes;
-    console.log(ListCard)
     for(let i = 0; i < ListCard.length; i++) {
       if(ListCard[i]==elem){
         if(choice=='Statistics'){

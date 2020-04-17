@@ -26,7 +26,10 @@ export class Sound{
         if(data[this.categ][i].audio==randAudio){
           let audio=new Audio('../src/audio/correct.mp3');
           let dataS = JSON.parse(localStorage.getItem("data"));
-          dataS[this.categ][i].win+=1;
+          let element=dataS[this.categ][i];
+          element.win+=1;
+          element.proc=((element.fail/(element.win+element.fail))*100).toFixed(1);
+
           localStorage.setItem ("data", JSON.stringify(dataS));
           audio.play();
           return true
@@ -37,7 +40,9 @@ export class Sound{
           for(let i = 0; i < data[this.categ].length; i++) {
             if(data[this.categ][i].audio==randAudio){
               let dataS = JSON.parse(localStorage.getItem("data"));
-              dataS[this.categ][i].fail+=1;
+              let element=dataS[this.categ][i];
+              element.fail+=1;
+              element.proc=((element.fail/(element.win+element.fail))*100).toFixed(1);
               localStorage.setItem ("data", JSON.stringify(dataS));
             }
           }
