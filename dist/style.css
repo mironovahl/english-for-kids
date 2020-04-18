@@ -414,7 +414,7 @@ body {
   transition: 0.5s ease;
   color: #0b2675; }
   .sidebar h3 {
-    color: #092472; }
+    color: #0b2675; }
   .sidebar li {
     cursor: pointer;
     padding: 5px; }
@@ -525,7 +525,7 @@ body {
     height: 38px;
     top: 13px;
     left: 15px;
-    color: seagreen;
+    color: #217445;
     transition: 0.6s ease; }
     @media (max-width: 414px) {
       .header__switcher.check .switch-label::after {
@@ -546,7 +546,7 @@ body {
     transition: 0.3s ease;
     outline: none;
     border-radius: 10px;
-    width: 350px;
+    width: 100%;
     height: 60px; }
     .button .button_start.repeat {
       transition: 0.3s ease;
@@ -568,15 +568,30 @@ body {
   position: absolute;
   z-index: 1;
   width: 100%; }
+  @media (max-width: 414px) {
+    .statistic-button {
+      padding: 0 25px; } }
   .statistic-button .button-reset, .statistic-button .button-diff {
-    margin: 10px;
+    margin: 10px 0;
     background-color: white;
     border-radius: 5px;
     width: 250px;
     outline: none;
     height: 40px;
     border: 0;
-    box-shadow: 3px 3px 2px rgba(34, 60, 80, 0.2); }
+    box-shadow: 3px 3px 6px #525050; }
+  @media (max-width: 1197px) {
+    .statistic-button .button-reset {
+      width: 18%; } }
+  @media (max-width: 767px) {
+    .statistic-button .button-diff, .statistic-button .button-reset {
+      position: absolute;
+      z-index: -1; }
+    .statistic-button .button-diff {
+      top: 55px; }
+    .statistic-button .button-reset {
+      top: 110px;
+      width: 250px; } }
 
 .content {
   font-size: 27px;
@@ -588,6 +603,9 @@ body {
   padding: 90px 40px 40px; }
   .content.statistic {
     padding-top: 150px; }
+    @media (max-width: 767px) {
+      .content.statistic {
+        padding-top: 265px; } }
 
 .result-lose {
   background: url(e9de6a62a86ff131af6f5886fed182a6.jpg); }
@@ -646,7 +664,7 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 5%;
-    background: #fff;
+    background: white;
     z-index: -1; }
   .card-categories.play::before {
     transform: rotate(10deg);
@@ -678,7 +696,7 @@ body {
   background-color: white;
   border-radius: 25px;
   overflow: hidden;
-  margin: 20px;
+  margin: 22px;
   position: relative; }
   .card-stat img {
     width: 100%;
@@ -707,20 +725,22 @@ body {
 .ul-statistics {
   background-color: white;
   border-radius: 5px;
-  box-shadow: 3px 3px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 3px 3px 6px #525050;
   cursor: pointer;
   text-align: center;
   vertical-align: middle;
   width: 250px;
   min-height: 40px;
-  margin: 10px; }
-  .ul-statistics.active {
-    box-shadow: 3px 3px 2px rgba(34, 60, 80, 0.2) inset; }
-    .ul-statistics.active li {
-      display: block; }
+  margin: 10px 0; }
+  @media (max-width: 767px) {
+    .ul-statistics {
+      position: absolute; } }
+  .ul-statistics.active li {
+    display: block; }
   .ul-statistics li {
+    height: 35px;
     border-radius: 5px;
-    background-color: #cfcff3;
+    background-color: #e6e6e6;
     margin: 5px;
     display: none; }
 

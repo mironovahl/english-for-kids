@@ -1,6 +1,6 @@
 .sidebar{
   padding: auto;
-  background-color: rgb(142, 195, 216);
+  background-color: $color-menu;
   height: 100vh;
   @include font(28px);
   width: 270px;
@@ -10,9 +10,9 @@
   left: -270px;
   padding: 50px 0 0 50px;
   transition: 0.5s ease;
-  color: rgb(11, 38, 117);
+  color: $color-navigation;
   h3{
-    color: rgb(9, 36, 114);
+    color: $color-navigation;
   }
   li{
     cursor: pointer;
@@ -37,6 +37,6 @@
   display: none;
   li{
     @include font(24px);
-    color:rgb(11, 28, 80);
+    color:$color-submenu;
   }
 }

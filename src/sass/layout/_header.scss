@@ -1,7 +1,7 @@
 .header {
   display: flex;
   @extend %font;
-  background-color: white;
+  background-color:$color-background;
   height: 90px;
   position: fixed;
   width: 100vw;

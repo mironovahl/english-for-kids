@@ -1,23 +1,25 @@
 .ul-statistics{
-  background-color: white;
+  background-color: $color-background;
   border-radius: 5px;
-  box-shadow: 3px 3px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 3px 3px 6px $color-shadow;
   cursor: pointer;
   text-align: center;
   vertical-align: middle;
   width: 250px;
   min-height: 40px;
-  margin: 10px;
-
+  margin: 10px 0;
+  @include media-tablet {
+    position: absolute;
+  }
   &.active{
-    box-shadow: 3px 3px 2px rgba(34, 60, 80, 0.2) inset;
     li{
       display: block;
     }
   }
   li{
+    height: 35px;
     border-radius: 5px;
-    background-color: rgb(207, 207, 243);
+    background-color: $color-sort;
     margin: 5px;
     display:none;
   }

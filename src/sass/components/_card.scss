@@ -26,7 +26,7 @@
 .card{
   &.play{
     height: 300px;
-    box-shadow: 3px 3px 5px rgb(82, 80, 80);
+    box-shadow: 3px 3px 5px $color-shadow;
     border-radius: 5%;
     overflow: hidden;
   }
@@ -46,7 +46,7 @@
       width: 100%;
       height: 100%;
       border-radius: 5%;
-      background: #fff;
+      background:$color-background;
       z-index:-1;
     }
     &::before{
@@ -63,12 +63,12 @@
   position:absolute;
   overflow: hidden;
   border-radius: 5%;
-  background-color: white;
-  box-shadow: 3px 3px 5px rgb(82, 80, 80);
+  background-color: $color-background;
+  box-shadow: 3px 3px 5px $color-shadow;
   transition: 0.3s ease-in;
   backface-visibility: hidden;
   &:hover{
-    box-shadow: 3px 6px 10px rgb(15, 13, 13);
+    box-shadow: 3px 6px 10px $color-shadow_hover;
   }
 }
 .front{
@@ -81,10 +81,10 @@
 .card-stat{
   height: 250px;
   width: 300px;
-  background-color: white;
+  background-color: $color-background;
   border-radius: 25px;
   overflow: hidden;
-  margin: 20px;
+  margin: 22px;
   position: relative;
   img{
     width: 100%;
