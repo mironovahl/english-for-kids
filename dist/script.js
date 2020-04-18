@@ -1119,6 +1119,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var sortby;
 var diffWord = [];
+var reverse = false;
 
 var getContainer = function getContainer() {
   var container = document.querySelector('.content');
@@ -1201,7 +1202,11 @@ var createPage = function createPage(choice) {
 
   var Sort = function Sort(d, sortby) {
     d.sort(function (prev, next) {
-      if (prev[sortby] > next[sortby]) return -1;
+      if (reverse) {
+        if (prev[sortby] > next[sortby]) return -1;
+      } else {
+        if (prev[sortby] < next[sortby]) return -1;
+      }
     });
     return d;
   };
@@ -1243,6 +1248,10 @@ var StatisticButton = function StatisticButton() {
       document.querySelector('.ul-statistics').classList.remove('active');
 
       if (event.target.classList.contains('sort-li')) {
+        if (sortby == event.target.id) {
+          reverse = reverse ? false : true;
+        }
+
         sortby = event.target.id;
         createPage('Statistics');
       }

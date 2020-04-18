@@ -3,7 +3,7 @@ import {Card} from './generate';
 import {Statistic} from './statistic';
 let sortby;
 let diffWord=[];
-
+let reverse=false;
 const getContainer = () => {
   const container = document.querySelector('.content');
   container.innerHTML = '';
@@ -77,7 +77,12 @@ const createPage = (choice) => {
 
     const Sort = (d,sortby) => {
       d.sort((prev, next) => {
-        if ( prev[sortby] > next[sortby]) return -1;
+        if(reverse){
+          if ( prev[sortby] > next[sortby]) return -1;
+        }
+        else{
+          if ( prev[sortby] < next[sortby]) return -1;
+        }
     });
     return d;
     }
@@ -119,6 +124,9 @@ const StatisticButton = () => {
     else{
       document.querySelector('.ul-statistics').classList.remove('active');
       if(event.target.classList.contains('sort-li')){
+        if(sortby==event.target.id){
+          reverse=reverse ? false : true;
+        }
         sortby=event.target.id;
         createPage('Statistics')
       }
