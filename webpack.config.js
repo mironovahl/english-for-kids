@@ -19,7 +19,7 @@ module.exports = (env, options) => {
     },
     module:{
       rules: [
-        /* {
+         {
           enforce: 'pre',
           test: /\.(js|ts)$/,
           exclude: /node_modules/,
@@ -29,7 +29,7 @@ module.exports = (env, options) => {
             emitWarning: true,
             failOnError: true
           }
-        } */{
+        },{
           test: /\.js$/,
           exclude: /node_modules/,
           use: {
@@ -66,6 +66,7 @@ module.exports = (env, options) => {
     },
 
     plugins:[
+      
       //new CleanWebpackPlugin(), 
       new HtmlWebpackPlugin({
         template: 'index.html'
