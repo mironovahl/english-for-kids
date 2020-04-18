@@ -66,8 +66,7 @@ module.exports = (env, options) => {
     },
 
     plugins:[
-      
-      //new CleanWebpackPlugin(), 
+      new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: 'index.html'
       }),
